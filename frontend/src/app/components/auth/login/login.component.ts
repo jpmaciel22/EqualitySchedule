@@ -30,6 +30,9 @@ export class LoginComponent {
         this.router.navigate(['/']); // redireciona para a home
       },
       error: (error) => {
+        if(error.error.error == 'Login inexistente.'){
+          this.router.navigate(['/','register']);
+        }
         console.error('Erro de login:', error.error.error); // mostra erro
       }
     });

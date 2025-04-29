@@ -22,7 +22,7 @@ exports.register = async(req,res,next) => {
 
 exports.login = async(req,res,next) => {
     const { email, password } = req.body
-    let testeUserEncontrado = await User.findOne({ 'email': email });
+    let testeUserEncontrado = await User.findOne({where: { 'email': email }});
     if (testeUserEncontrado) {
         const passwordMatch = await bcrypt.compare(password, testeUserEncontrado.password);
         if (!passwordMatch) {
