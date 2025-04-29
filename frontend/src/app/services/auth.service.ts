@@ -22,6 +22,7 @@ export class AuthService {
   logout() : void {
     localStorage.removeItem('token');
     this.isLoginSubject.next(false);
+    this.router.navigate(['/login'])
   }
 
   isLoggedIn() : Observable<boolean> { // o que de fato usaremos nos subscribers do servico.
