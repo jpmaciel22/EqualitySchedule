@@ -1,0 +1,10 @@
+<div class="main">
+<h2>Entrar na sua conta</h2>
+<form class="form" (ngSubmit)="onLogin()">
+  <input type="email" [(ngModel)]="email" name="email" placeholder="✉  Email" required>
+  <input type="password" [(ngModel)]="password" name="password" placeholder="🔒  Password" required>
+  <button type="submit">Login</button>
+</form>
+<h4>Ainda não possui uma conta?</h4>
+<button routerLink="../register">Registrar</button>
+</div>
