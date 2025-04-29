@@ -7,6 +7,11 @@
     <div class="nav-buttons">
         <button class="nav-button" routerLink='./'>Home</button>
         <button class="nav-button">My Appointments</button>
+        <div *ngIf="!isLoggedIn">
         <button routerLink='/login'class="nav-button">Login</button>
+        </div>
+        <div *ngIf="!!isLoggedIn">
+        <button (click)='authService.logout()'class="nav-button">Logout</button>
+        </div>
     </div>
 </nav>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from '../../../services/login.service';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,25 +16,25 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router, private authService: AuthService) {}
 
 
   onLogin() {
-    this.loginService.login(this.email, this.password).subscribe({
+    this.authService.authenticate(this.email, this.password).subscribe({
       next: (response) => {
-        if(response.success == false){
+        if (response.success == false) {
           this.router.navigate(['/']);
           return;
         }
         console.log('Login sucesso:', response);
-        localStorage.setItem('token', response.token); // salva token local
+        this.authService.login(response.token);
         this.router.navigate(['/']); // redireciona para a home
       },
       error: (error) => {
-        if(error.error.error == 'Login inexistente.'){
-          this.router.navigate(['/','register']);
+        if (error.error.error === 'Login inexistente.') {
+          this.router.navigate(['/register']);
         }
-        console.error('Erro de login:', error.error.error); // mostra erro
+        console.error('Erro de login:', error.error.error);
       }
     });
   }
