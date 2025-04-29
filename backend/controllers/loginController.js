@@ -8,13 +8,12 @@ exports.register = async(req,res,next) => {
     try {
         const { email, password } = req.body;
 
-        let testeUserEncontrado = await User.findOne({ 'email': email });
+        let testeUserEncontrado = await User.findOne({ where: { email } });
         if (testeUserEncontrado) {
           return res.json({ success: false, message: 'Este usuario já existe!' });
         }
         const senhaEncrypt = await bcrypt.hash(password, 10);
-        const user = new User({ email, password: senhaEncrypt });
-        await user.save(); // utilizado para salvar o usuario 
+        await User.create({ email, password: senhaEncrypt }); // utilizado para salvar o usuario 
          return res.status(201).json({ message: 'Usuario registrado com sucesso.' });
         } catch (error) {
         return res.status(500).json(error,{ error: 'Algo falhou.' });
