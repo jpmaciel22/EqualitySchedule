@@ -19,6 +19,7 @@ export class RegisterComponent {
   constructor(private loginService: LoginService, private router: Router) { }
 
   onRegister() {
+    console.log(this.typeUser)
     if (this.email.includes('@') && this.email.includes('.com')) {
       this.loginService.register(this.email, this.password, this.typeUser).subscribe({
         next: (response) => {
