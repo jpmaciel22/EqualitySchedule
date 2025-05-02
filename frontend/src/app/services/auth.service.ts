@@ -8,7 +8,7 @@ import { LoginService } from './login.service';
 })
 export class AuthService {
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
-  constructor(private router: Router, private loginService: LoginService,) { }
+  constructor(private router: Router, private loginService: LoginService) { }
 
   private hasToken() : boolean { // apenas para inicializar
     return !!localStorage.getItem('token');
@@ -29,7 +29,7 @@ export class AuthService {
     return this.isLoginSubject.asObservable();
    }
 
-   authenticate(email: string, password: string): Observable<any> {
-    return this.loginService.login(email, password);
+   authenticate(email: string, password: string, typeUser: string): Observable<any> {
+    return this.loginService.login(email, password, typeUser);
   }
 }

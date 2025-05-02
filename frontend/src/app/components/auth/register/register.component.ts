@@ -11,23 +11,27 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegisterComponent {
 
-  
+
   email: string = '';
   password: string = '';
+  typeUser: string = '';
 
-  constructor(private loginService: LoginService, private router: Router) {}
-  
+  constructor(private loginService: LoginService, private router: Router) { }
+
   onRegister() {
-    this.loginService.register(this.email, this.password).subscribe({
-      next:(response) => {
-        if(response.success == false){
-          console.log(response)
-          this.router.navigate(['/']);
+    if (this.email.includes('@') && this.email.includes('.com')) {
+      this.loginService.register(this.email, this.password, this.typeUser).subscribe({
+        next: (response) => {
+          if (response.success == false) {
+            console.log(response)
+            this.router.navigate(['/']);
+            return;
+          }
+          this.router.navigate(['../', 'login']);
+          console.log('Res:', response)
           return;
         }
-        this.router.navigate(['../','login']);
-        console.log('Res:',response)
-      }
-    })
+      })
+    } else console.log('Email inválido.')
   }
 }

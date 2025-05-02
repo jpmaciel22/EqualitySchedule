@@ -15,12 +15,13 @@ export class LoginComponent {
 
   email: string = '';
   password: string = '';
+  typeUser: string = '';
 
   constructor(private loginService: LoginService, private router: Router, private authService: AuthService) {}
 
 
   onLogin() {
-    this.authService.authenticate(this.email, this.password).subscribe({
+    this.authService.authenticate(this.email, this.password, this.typeUser).subscribe({
       next: (response) => {
         if (response.success == false) {
           this.router.navigate(['/']);

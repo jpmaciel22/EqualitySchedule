@@ -3,6 +3,10 @@
 <form class="form" (ngSubmit)="onLogin()">
   <input type="email" [(ngModel)]="email" name="email" placeholder="✉  Email" required>
   <input type="password" [(ngModel)]="password" name="password" placeholder="🔒  Password" required>
+  <select name="select" [(ngModel)]="typeUser" required style="margin-bottom: 10px;">
+    <option name='medico' value="medico">Conta de médico</option>
+    <option name='cliente' value="cliente">Conta de cliente</option>
+  </select>
   <button type="submit">Login</button>
 </form>
 <h4>Ainda não possui uma conta?</h4>
