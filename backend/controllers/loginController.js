@@ -8,7 +8,7 @@ const Medico = require('../models/medModel');
 exports.register = async(req,res,next) => {
     try {
         const { email, password, typeUser } = req.body;
-        if(typeUser === 'cliente'){
+        if(typeUser == 'cliente'){
             let testeUserEncontrado = await User.findOne({ where: { email } });
             if (testeUserEncontrado) {
               return res.json({ success: false, message: 'Este usuario já existe!' });
@@ -17,7 +17,7 @@ exports.register = async(req,res,next) => {
         await User.create({ email, password: senhaEncrypt }); // utilizado para salvar o usuario 
          return res.status(201).json({success:true, message: 'Usuario registrado com sucesso.' });
         }
-        if (typeUser === 'medico') {
+        if (typeUser == 'medico') {
             const existingMedico = await Medico.findOne({ where: { email } });
             if (existingMedico) {
               return res.json({ success: false, message: 'Médico já existe!' });
@@ -26,7 +26,7 @@ exports.register = async(req,res,next) => {
             await Medico.create({ email, password: senhaEncrypt, approved: false });
             return res.status(201).json({ success: true, message: 'Médico registrado com sucesso.' });
           }
-      
+          console.log(req.body)
           return res.status(400).json({ success: false, message: 'Tipo de usuário inválido.' });
         } catch (error) {
         return res.status(500).json(error,{ error: 'Algo falhou.' });

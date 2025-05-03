@@ -11,12 +11,12 @@ export class LoginService {
 
 
   register(email: string, password: string, typeUser: string): Observable<any> {
-    const body = { email, password };
+    const body = { email, password, typeUser };
     return this.http.post('http://localhost:3000/login/register', body);
   }
 
   login(email: string, password: string, typeUser: string): Observable<any> {
-    const body = { email, password };
+    const body = { email, password, typeUser };
     return this.http.post('http://localhost:3000/login/', body);
   }
 
