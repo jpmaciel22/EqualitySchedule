@@ -53,7 +53,7 @@ exports.login = async(req,res,next) => {
         if (testeUserEncontrado) {
             const passwordMatch = await bcrypt.compare(password, testeUserEncontrado.password);
             if (!passwordMatch) {
-                return res.status(401).json({ error: 'Senha incorreta.' });
+                return res.status(401).json({ success:false, message:'Senha incorreta' });
                 }
             const token = jwt.sign({ id: testeUserEncontrado.id }, process.env.SECRET_KEY, {
                     expiresIn: '1h',
@@ -62,6 +62,6 @@ exports.login = async(req,res,next) => {
           }
     }
     if (!testeUserEncontrado) {
-        return res.status(401).json({ error: 'Login inexistente.' });
+        return res.status(401).json({ success:false, message: 'Usuário inexistente.' });
     }
 }
