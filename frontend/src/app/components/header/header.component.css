@@ -12,8 +12,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 2rem;
-            background-color: #1a1e21;
-            box-shadow: 0 2px 4px rgba(97, 147, 188, 0.8);
+            background-color: #211a21;
+            box-shadow: 0 2px 4px rgba(188, 97, 159, 0.8);
         }
 
         .logo {
@@ -29,7 +29,7 @@
         .logo-text {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #f1f5ff;
+            color: #fdf1ff;
         }
 
         .nav-buttons {
@@ -41,7 +41,7 @@
             padding: 0.5rem 1rem;
             background-color: transparent;
             border: none;
-            color: #7ebef3dc;
+            color: #e77ef3dc;
             font-size: 1.1rem;
             cursor: pointer;
             border-radius: 4px;
@@ -50,5 +50,5 @@
 
         .nav-button:hover {
             background-color: #e9ecef;
-            color: #0056b3;
+            color: #b30095;
         }

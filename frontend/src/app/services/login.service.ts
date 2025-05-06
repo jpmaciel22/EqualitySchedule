@@ -10,11 +10,10 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
 
-  register(email: string, password: string, typeUser: string, nome: string, cpf: string, telefone: string, regiao?: string, tempo?: string): Observable<any> {
+  register(email: string, password: string, typeUser: string, nome: string, cpf: string, telefone: string, regiao?: string): Observable<any> {
       const body: any = { email, password, typeUser, nome, cpf, telefone};
-      if (regiao && tempo) {
+      if (regiao) {
         body.regiao = regiao;
-        body.tempo = tempo;
       }
       return this.http.post('http://localhost:3000/login/register', body);
   }

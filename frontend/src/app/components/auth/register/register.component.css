@@ -13,7 +13,7 @@
   }
   
   h2 {
-    color: #37474f; 
+    color: #47374f; 
     margin-bottom: 20px;
     text-align: center;
   }
@@ -39,8 +39,8 @@
   }
   
   .form button[type="submit"] {
-    background-color: #9bccdf;
-    color: rgb(28, 81, 95);
+    background-color: #df9bdb;
+    color: rgb(95, 28, 94);
     padding: 14px;
     border: none;
     border-radius: 5px;
@@ -51,14 +51,14 @@
   }
   
   .form button[type="submit"]:hover {
-    background-color: #a2c3ff;
+    background-color:  #ffa2f7;
     font-family: 'Ubuntu';
   }
   
   h2 + button { /* Estiliza o botão "Registrar" que vem depois do segundo h2 */
     background-color: transparent;
-    color: #303f9f;
-    border: 1px solid #303f9f;
+    color: #9a309f;
+    border: 1px solid #9b309f;
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 16px;
@@ -69,7 +69,7 @@
   }
   
   h2 + button:hover {
-    background-color: #303f9f;
+    background-color: #9f309f;
     color: white;
     font-family: 'Ubuntu';
   }

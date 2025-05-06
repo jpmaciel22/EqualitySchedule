@@ -21,10 +21,6 @@ const Medico = sequelize.define('Medico', {
     type: DataTypes.INTEGER,
     defaultValue: 0
   },
-  tempo: {
-    type: DataTypes.STRING,
-    defaultValue: '0'
-  },
   regiao: {
     type: DataTypes.STRING,
   },
