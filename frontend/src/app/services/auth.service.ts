@@ -8,6 +8,7 @@ import { LoginService } from './login.service';
 })
 export class AuthService {
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
+  
   constructor(private router: Router, private loginService: LoginService) { }
 
   private hasToken() : boolean { // apenas para inicializar
@@ -17,6 +18,11 @@ export class AuthService {
   login(token: string) {
     localStorage.setItem('token', token);
     this.isLoginSubject.next(true);
+  }
+
+  user(nome: string, email: string){
+    localStorage.setItem('nome', nome );
+    localStorage.setItem('email', email)
   }
 
   logout() : void {

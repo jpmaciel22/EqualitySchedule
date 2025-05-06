@@ -48,7 +48,7 @@ exports.login = async (req, res, next) => {
       let token = testeUserEncontrado.dataValues.cpf.slice(0,4)
       token = parseInt(token * 0.5534)
       console.log(token)
-      res.status(200).json({ token });
+      res.status(200).json({ token, nome: testeUserEncontrado.nome, email: testeUserEncontrado.email });
     }
   }
   if (typeUser === 'medico') {
@@ -61,7 +61,7 @@ exports.login = async (req, res, next) => {
       let token = testeUserEncontrado.dataValues.cpf.slice(0,4)
       token = parseInt(token * 0.5534)
       console.log(token)
-      res.status(200).json({ token });
+      res.status(200).json({ token, nome: testeUserEncontrado.nome, email: testeUserEncontrado.email });
     }
   }
   if (!testeUserEncontrado) {
