@@ -18,7 +18,7 @@ const User = sequelize.define('User', {
   },
   telefone: {
     unique: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.STRING
   },
   nome: {
     type: DataTypes.STRING

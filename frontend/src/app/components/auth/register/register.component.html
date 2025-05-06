@@ -3,13 +3,17 @@
 <form class='form' (ngSubmit)="onRegister()">
   <input type="email" [(ngModel)]="email" name="email" placeholder="✉  Email" required>
   <input type="password" [(ngModel)]="password" name="password" placeholder="🔒  Password" required>
+  <input type="text" [(ngModel)]="nome" name="nome" placeholder="👤 Nome" required>
+  <input type="text" [(ngModel)]="cpf" name="cpf" placeholder="❗ CPF" required>
+  <input type="string" [(ngModel)]="telefone" name="telefone" placeholder="📞 Telefone" required>
   <select name="select" [(ngModel)]="typeUser" required style="margin-bottom: 10px;">
     <option name='medico' value="medico">Conta de médico</option>
     <option name='cliente' value="cliente">Conta de cliente</option>
   </select>
-  <div *ngIf="typeUser == 'medico'">
-    <h1>Cheguei aqui</h1>
-  </div>
+  @if(typeUser == 'medico'){
+    <input type="text" [(ngModel)]="regiao" name="regiao" placeholder="🌐 Região" required>
+    <input type="text" [(ngModel)]="tempo" name="tempo" placeholder="🕐 Tempo de atendimento (mins.)" required>
+  }
   <button type="submit">Registrar</button>
 </form>
 </div>

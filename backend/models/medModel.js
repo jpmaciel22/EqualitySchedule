@@ -2,8 +2,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
 const Medico = sequelize.define('Medico', {
-  CPF: {
-    type: DataTypes.INTEGER,
+  cpf: {
+    type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false,
     unique: true,
@@ -16,9 +16,6 @@ const Medico = sequelize.define('Medico', {
   password: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  approved: {
-    type: DataTypes.BOOLEAN
   },
   nota: {
     type: DataTypes.INTEGER,
@@ -33,7 +30,7 @@ const Medico = sequelize.define('Medico', {
   },
   telefone: {
     unique: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.STRING
   },
   nome: {
     type: DataTypes.STRING,

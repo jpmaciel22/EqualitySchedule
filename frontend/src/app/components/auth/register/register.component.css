@@ -9,7 +9,7 @@
     border-radius: 10px; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
     width: 300px; 
-    margin: 200px auto; 
+    margin: 100px auto; 
   }
   
   h2 {
@@ -24,8 +24,7 @@
     width: 100%;
   }
   
-  .form input[type="email"],
-  .form input[type="password"] {
+  .form input, select {
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #e0e0e0; 

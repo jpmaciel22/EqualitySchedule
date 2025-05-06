@@ -16,13 +16,18 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
   typeUser: string = '';
+  cpf: string = '';
+  telefone: string = '';
+  nome: string = '';
+  regiao: string = '';
+  tempo: string = '';
 
   constructor(private loginService: LoginService, private router: Router) { }
 
   onRegister() {
     console.log(this.typeUser)
     if (this.email.includes('@') && this.email.includes('.com')) {
-      this.loginService.register(this.email, this.password, this.typeUser).subscribe({
+      this.loginService.register(this.email, this.password, this.typeUser, this.nome, this.cpf, this.telefone, this.regiao, this.tempo).subscribe({
         next: (response) => {
           if (response.success == false) {
             console.log(response)
