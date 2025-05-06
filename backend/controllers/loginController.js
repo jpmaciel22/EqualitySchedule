@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const User = require('../models/LoginModel');
+const User = require('../models/loginModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Medico = require('../models/medModel');

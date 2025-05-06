@@ -10,7 +10,19 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false
-  }
+  },
+  cpf: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    unique: true,
+  },
+  telefone: {
+    unique: true,
+    type: DataTypes.INTEGER
+  },
+  nome: {
+    type: DataTypes.STRING
+    }
 });
 
 module.exports = User;

@@ -7,6 +7,9 @@
     <option name='medico' value="medico">Conta de médico</option>
     <option name='cliente' value="cliente">Conta de cliente</option>
   </select>
+  <div *ngIf="typeUser == 'medico'">
+    <h1>Cheguei aqui</h1>
+  </div>
   <button type="submit">Registrar</button>
 </form>
 </div>

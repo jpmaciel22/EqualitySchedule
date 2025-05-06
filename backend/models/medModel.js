@@ -2,11 +2,11 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
 const Medico = sequelize.define('Medico', {
-  id: {
+  CPF: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
-    allowNull: false
+    allowNull: false,
+    unique: true,
   },
   email: {
     type: DataTypes.STRING,
@@ -19,7 +19,26 @@ const Medico = sequelize.define('Medico', {
   },
   approved: {
     type: DataTypes.BOOLEAN
+  },
+  nota: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  },
+  tempo: {
+    type: DataTypes.STRING,
+    defaultValue: '0'
+  },
+  regiao: {
+    type: DataTypes.STRING,
+  },
+  telefone: {
+    unique: true,
+    type: DataTypes.INTEGER
+  },
+  nome: {
+    type: DataTypes.STRING,
   }
+  // falta endereco.
 });
 
 module.exports = Medico;
