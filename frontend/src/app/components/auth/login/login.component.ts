@@ -29,7 +29,6 @@ export class LoginComponent {
         }
         console.log('Login sucesso:', response);
         this.authService.login(response.token);
-        this.authService.user(response.nome, response.email)
         this.router.navigate(['/']); // redireciona para a home
       },
       error: (error) => {

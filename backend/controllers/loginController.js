@@ -45,10 +45,14 @@ exports.login = async (req, res, next) => {
       // const token = jwt.sign({ id: testeUserEncontrado.id }, process.env.SECRET_KEY, {
       //   expiresIn: '1h',
       // }); // functional JWT
-      let token = testeUserEncontrado.dataValues.cpf.slice(0,4)
-      token = parseInt(token * 0.5534)
-      console.log(token)
-      res.status(200).json({ token, nome: testeUserEncontrado.nome, email: testeUserEncontrado.email });
+      const payload = {
+        nome: testeUserEncontrado.nome,
+        cpf: testeUserEncontrado.cpf,
+        email: testeUserEncontrado.email,
+        type: typeUser
+      };
+      const token = jwt.sign( { payload }, process.env.SECRET_KEY, { expiresIn: '1h' });
+      res.status(200).json({ token });
     }
   }
   if (typeUser === 'medico') {
@@ -58,10 +62,14 @@ exports.login = async (req, res, next) => {
       if (!passwordMatch) {
         return res.status(401).json({ success: false, message: 'Senha incorreta' });
       }
-      let token = testeUserEncontrado.dataValues.cpf.slice(0,4)
-      token = parseInt(token * 0.5534)
-      console.log(token)
-      res.status(200).json({ token, nome: testeUserEncontrado.nome, email: testeUserEncontrado.email });
+      const payload = {
+        nome: testeUserEncontrado.nome,
+        cpf: testeUserEncontrado.cpf,
+        email: testeUserEncontrado.email,
+        type: typeUser
+      };
+      const token = jwt.sign( { payload }, process.env.SECRET_KEY, { expiresIn: '1h' });
+      res.status(200).json({ token });
     }
   }
   if (!testeUserEncontrado) {

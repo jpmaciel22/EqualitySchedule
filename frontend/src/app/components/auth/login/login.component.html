@@ -1,5 +1,5 @@
 <div class="main">
-<h2>Entrar na sua conta</h2>
+<h4>Entrar na sua conta</h4>
 <form class="form" (ngSubmit)="onLogin()">
   <input type="email" [(ngModel)]="email" name="email" placeholder="✉  Email" required>
   <input type="password" [(ngModel)]="password" name="password" placeholder="🔒  Password" required>
@@ -9,6 +9,7 @@
   </select>
   <button type="submit">Login</button>
 </form>
-<h4>Ainda não possui uma conta?</h4>
+<br>
+<h6>Ainda não possui uma conta?</h6>
 <button routerLink="../register">Registrar</button>
 </div>

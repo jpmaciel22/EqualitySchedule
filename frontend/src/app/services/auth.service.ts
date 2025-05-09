@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginService } from './login.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
+  token:any = localStorage.getItem('token');
   
   constructor(private router: Router, private loginService: LoginService) { }
 
@@ -17,13 +19,17 @@ export class AuthService {
 
   login(token: string) {
     localStorage.setItem('token', token);
+    this.token = token
     this.isLoginSubject.next(true);
   }
 
-  user(nome: string, email: string){
-    localStorage.setItem('nome', nome );
-    localStorage.setItem('email', email)
+  user(){
+    try{
+      return jwtDecode(this.token);
+    }catch {
+    return null;
   }
+}
 
   logout() : void {
     localStorage.removeItem('token');

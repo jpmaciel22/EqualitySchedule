@@ -5,3 +5,19 @@
     text-align: center;
     font-family: 'Ubuntu';
   }
+  .wrap{
+    padding: 20px;
+    background-color: #501e3b70;
+    border-radius: 10px;
+    width: 50%;
+    height: 50%;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(188, 97, 159, 0.5);
+  }
+  .container{
+    margin: 40px auto;
+  }
+  .paragrafo{
+    justify-content: space-evenly;
+  }

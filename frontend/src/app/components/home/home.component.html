@@ -1,4 +1,24 @@
+<br><br>
 <div class="main">
-<h1>Venham nos conhecer! </h1>
-<h1>Olá {{username}}</h1>
+    <h1>Centro de atendimento EOG do núcleo AMADO </h1>
+    <h3>Olá {{user.payload.nome}}</h3>
+  <div class="wrap paragrafo">
+    <div class="container paragrafo">
+      <p style="font-size: 25px">Esse sistema tem como objetivo auxiliar a comunidade LGBTQIA+ em diversos campos de forma gratuita, atuando juntamente com ONGs que trabalham diretamente com esse público.</p>
+    </div>
+    <div class="container paragrafo"><p style="font-size: 20px"> Para agendar um atendimento, nutricionista, psicólogo, ou jurídico , clique em <span style="font-style:italic">"meus agendamentos."</span></p></div>
+  </div>
+  <br>
+  <ngb-carousel>
+    <ng-template ngbSlide>
+      <img src="psicologo.png" width="42%" height="42%" alt="Slide 1">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img src="juridico.png" width="42%" height="42%" alt="Slide 2">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img src="nutricao.png" width="42%" height="42%" alt="Slide 3">
+    </ng-template>
+  </ngb-carousel>
+  <br><br>
 </div>

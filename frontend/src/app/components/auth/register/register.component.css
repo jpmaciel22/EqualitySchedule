@@ -12,7 +12,7 @@
     margin: 100px auto; 
   }
   
-  h2 {
+  h4 {
     color: #47374f; 
     margin-bottom: 20px;
     text-align: center;
@@ -55,7 +55,7 @@
     font-family: 'Ubuntu';
   }
   
-  h2 + button { /* Estiliza o botão "Registrar" que vem depois do segundo h2 */
+  h4 + button { /* Estiliza o botão "Registrar" que vem depois do segundo h2 */
     background-color: transparent;
     color: #9a309f;
     border: 1px solid #9b309f;
@@ -68,7 +68,7 @@
     font-family: 'Ubuntu';
   }
   
-  h2 + button:hover {
+  h4 + button:hover {
     background-color: #9f309f;
     color: white;
     font-family: 'Ubuntu';
