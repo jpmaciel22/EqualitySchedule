@@ -54,6 +54,9 @@ exports.login = async (req, res, next) => {
       const token = jwt.sign( { payload }, process.env.SECRET_KEY, { expiresIn: '1h' });
       res.status(200).json({ token });
     }
+    if (!testeUserEncontrado) {
+      return res.status(401).json({ success: false, message: 'Usuário inexistente.' });
+    }
   }
   if (typeUser === 'medico') {
     let testeUserEncontrado = await Medico.findOne({ where: { 'email': email } });
@@ -71,8 +74,9 @@ exports.login = async (req, res, next) => {
       const token = jwt.sign( { payload }, process.env.SECRET_KEY, { expiresIn: '1h' });
       res.status(200).json({ token });
     }
+    if (!testeUserEncontrado) {
+      return res.status(401).json({ success: false, message: 'Usuário inexistente.' });
+    }
   }
-  if (!testeUserEncontrado) {
-    return res.status(401).json({ success: false, message: 'Usuário inexistente.' });
-  }
+  else{console.log('Erro: ',res)}
 }
