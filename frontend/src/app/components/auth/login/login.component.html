@@ -9,6 +9,10 @@
   </select>
   <button type="submit">Login</button>
 </form>
+  @if(error){
+    <br>
+  <h6 style="color: red; border: solid 1px; padding: 3px;">{{error}}</h6>
+  }
 <br>
 <h6>Ainda não possui uma conta?</h6>
 <button routerLink="../register">Registrar</button>

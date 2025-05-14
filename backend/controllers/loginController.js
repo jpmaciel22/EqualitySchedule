@@ -29,7 +29,7 @@ exports.register = async (req, res, next) => {
     return res.status(400).json({ success: false, message: 'Tipo de usuário inválido.' });
   } catch (error) {
     console.log(req.body)
-    return res.status(500).json(error, { error: 'Algo falhou.' });
+    return res.status(500).json(error, { success: false ,message: 'Algo falhou.' });
   }
 }
 
@@ -40,7 +40,7 @@ exports.login = async (req, res, next) => {
     if (testeUserEncontrado) {
       const passwordMatch = await bcrypt.compare(password, testeUserEncontrado.password);
       if (!passwordMatch) {
-        return res.status(401).json({ error: 'Senha incorreta.' });
+        return res.status(401).json({ success: false, message: 'Senha incorreta' });
       }
       // const token = jwt.sign({ id: testeUserEncontrado.id }, process.env.SECRET_KEY, {
       //   expiresIn: '1h',
@@ -63,7 +63,7 @@ exports.login = async (req, res, next) => {
     if (testeUserEncontrado) {
       const passwordMatch = await bcrypt.compare(password, testeUserEncontrado.password);
       if (!passwordMatch) {
-        return res.status(401).json({ success: false, message: 'Senha incorreta' });
+        return res.status(401).json({ success: false, message: 'Senha incorreta.' });
       }
       const payload = {
         nome: testeUserEncontrado.nome,

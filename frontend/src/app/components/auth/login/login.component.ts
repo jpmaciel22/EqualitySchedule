@@ -16,6 +16,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   typeUser: string = '';
+  error: string = '';
 
   constructor(private loginService: LoginService, private router: Router, private authService: AuthService) {}
 
@@ -35,7 +36,8 @@ export class LoginComponent {
         if (error.error.error === 'Login inexistente.') {
           this.router.navigate(['/register']);
         }
-        console.error('Erro de login:', error.error.error);
+        console.error('Erro de login:', error.error);
+        this.error = error.error.message;
         
       }
     });
