@@ -17,10 +17,6 @@ const Medico = sequelize.define('Medico', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  nota: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0
-  },
   regiao: {
     type: DataTypes.STRING,
   },
