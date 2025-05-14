@@ -11,7 +11,7 @@ exports.register = async (req, res, next) => {
     if (typeUser == 'cliente') {
       const testeUserEncontrado = await User.findOne({ where: { email } });
       if (testeUserEncontrado) {
-        return res.json({ success: false, message: 'Este usuario já existe!' });
+        return res.status(401).json({ success: false, message: 'Este usuario já existe!' });
       }
       const senhaEncrypt = await bcrypt.hash(password, 10);
       await User.create({ email, password: senhaEncrypt, nome, cpf, telefone }); // utilizado para salvar o usuario 
@@ -20,7 +20,7 @@ exports.register = async (req, res, next) => {
     if (typeUser == 'medico') {
       const testeUserEncontrado = await Medico.findOne({ where: { email } });
       if (testeUserEncontrado) {
-        return res.json({ success: false, message: 'Médico já existe!' });
+        return res.status(401).json({ success: false, message: 'Médico já existe!' });
       }
       const senhaEncrypt = await bcrypt.hash(password, 10);
       await Medico.create({ email, password: senhaEncrypt, nome, cpf, telefone, regiao  });

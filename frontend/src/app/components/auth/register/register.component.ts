@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,NgbAlertModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -28,15 +28,14 @@ export class RegisterComponent {
     if (this.email.includes('@') && this.email.includes('.com')) {
       this.loginService.register(this.email, this.password, this.typeUser, this.nome, this.cpf, this.telefone, this.regiao).subscribe({
         next: (response) => {
-          if (response.success == false) {
-            console.log(response)
-            this.error = response.message;
-            return;
-          }
           this.router.navigate(['../', 'login']);
           console.log('Res:', response)
           return;
         },
+        error: (error) => {
+          console.log('Erro de login: ',error)
+          this.error = error.error.message
+        }
       })
     } else console.log('Email inválido.')
   }

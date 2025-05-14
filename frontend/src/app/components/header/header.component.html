@@ -6,7 +6,7 @@
     </div>
     <div class="nav-buttons">
         <button class="nav-button" routerLink='./'>Home</button>
-        <button class="nav-button">Meus Agendamentos</button>
+        <button routerLink='/tasks' class="nav-button">Meus Agendamentos</button>
         <div *ngIf="!(isLoggedIn | async)">
         <button routerLink='/login'class="nav-button">Login</button>
         </div>

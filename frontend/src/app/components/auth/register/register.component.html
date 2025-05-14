@@ -16,6 +16,7 @@
   <button type="submit">Registrar</button>
 </form>
   @if(error){
-  <h6 style="color: red; border: solid 1px; padding: 3px;">{{error}}</h6>
+    <br>
+  <ngb-alert type="danger" [dismissible]="false" style="padding: 3px;">{{error}}</ngb-alert>
   }
 </div>
