@@ -20,7 +20,7 @@ export class RegisterComponent {
   telefone: string = '';
   nome: string = '';
   regiao: string = '';
-  
+  error: string = '';
   constructor(private loginService: LoginService, private router: Router) { }
 
   onRegister() {
@@ -30,13 +30,13 @@ export class RegisterComponent {
         next: (response) => {
           if (response.success == false) {
             console.log(response)
-            this.router.navigate(['/']);
+            this.error = response.message;
             return;
           }
           this.router.navigate(['../', 'login']);
           console.log('Res:', response)
           return;
-        }
+        },
       })
     } else console.log('Email inválido.')
   }
