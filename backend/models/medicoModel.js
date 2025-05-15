@@ -19,6 +19,7 @@ const Medico = sequelize.define('Medico', {
   },
   regiao: {
     type: DataTypes.STRING,
+    allowNull: false
   },
   telefone: {
     unique: true,
@@ -26,8 +27,9 @@ const Medico = sequelize.define('Medico', {
   },
   nome: {
     type: DataTypes.STRING,
-  }
-  // falta endereco.
+    allowNull: false
+  },
 });
+
 
 module.exports = Medico;

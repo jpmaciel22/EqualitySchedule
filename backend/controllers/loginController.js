@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
-const User = require('../models/loginModel');
+const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Medico = require('../models/medModel');
+const Medico = require('../models/medicoModel');
 
 exports.register = async (req, res, next) => {
   try {
