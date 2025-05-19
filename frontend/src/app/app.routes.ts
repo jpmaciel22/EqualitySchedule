@@ -10,9 +10,9 @@ import { EnderecoComponent } from './components/auth/endereco/endereco.component
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'register/endereco', component: EnderecoComponent },
     { path: '', component: HomeComponent, canActivate: [authGuard]},
-    {path: 'tasks', component: UserTasksComponent},
+    { path: 'register', component: RegisterComponent },
+    { path: 'register/endereco', component: EnderecoComponent, canActivate: [authGuard] },
+    {path: 'tasks', component: UserTasksComponent, canActivate: [authGuard]},
     {path: '**', component: NotFoundComponent},
 ];
