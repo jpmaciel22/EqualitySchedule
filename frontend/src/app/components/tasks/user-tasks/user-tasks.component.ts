@@ -1,14 +1,32 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-tasks',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css'
 })
 
 export class UserTasksComponent {
+
+tasks = [
+  { titulo: 'Consulta Nutricional', info: '12/06 às 14:00' },
+  { titulo: 'Atendimento Psicológico', info: '13/06 às 10:00' },
+];
+
+realizadas = [
+  { nome: 'Consulta de Maio' },
+  { nome: 'Avaliação Psicológica' },
+];
+
+pendentes = [
+  { nome: 'Nutrição Junho' },
+  { nome: 'Consulta Jurídica' },
+];
+
+
   user: any;
   email: any =  '';
   userId: any = '';

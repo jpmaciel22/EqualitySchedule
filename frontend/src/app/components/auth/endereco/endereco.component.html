@@ -1,0 +1,14 @@
+<div class="main">
+<h4>Cadastrar um Endereço</h4>
+<form class="form" (ngSubmit)="onRegisterEndereco()">
+  <input type="text" [(ngModel)]="rua" name="rua" placeholder=" Rua " required>
+  <input type="text" [(ngModel)]="cidade" name="cidade" placeholder=" Cidade " required>
+  <input type="text" [(ngModel)]="estado" name="estado" placeholder=" Estado " required>
+  <button type="submit">Cadastrar</button>
+</form>
+  @if(error){
+    <br>
+  <ngb-alert type="danger" [dismissible]="false" style="padding: 3px;">{{error}}</ngb-alert>
+  }
+<br>
+</div>

@@ -1,20 +1,31 @@
-<h1>Olá {{user.payload.nome}}</h1>
-<table>
-    <tr>
-        <td>
-            TESTE
-        </td>
-        <td>
-            TESTE
-        </td>
-    </tr>
-        <tr>
-        <td>
-            TESTE
-        </td>
-        <td>
-            TESTE
-        </td>
-    </tr>
+<div class="main">
+  <h2>Suas consultas</h2>
+  <p class="subtext">Olá, {{ user.payload?.nome || 'usuário' }}</p>
+
+  <div class="carousel">
     
-</table>
+    <div class="carousel-track">
+      <div class="task-card" *ngFor="let task of tasks">
+        <p class="task-title">{{ task.titulo }}</p>
+        <p class="task-info">{{ task.info }}</p>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="status-grids">
+    <div class="status-column">
+      <h3 class="status-title">Realizadas</h3>
+      <div class="task-grid">
+        <div class="status-box" *ngFor="let t of realizadas">{{ t.nome }}</div>
+      </div>
+    </div>
+
+    <div class="status-column">
+      <h3 class="status-title">Pendentes</h3>
+      <div class="task-grid">
+        <div class="status-box pending" *ngFor="let t of pendentes">{{ t.nome }}</div>
+      </div>
+    </div>
+  </div>
+</div>

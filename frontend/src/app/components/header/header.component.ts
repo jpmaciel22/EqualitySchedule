@@ -14,6 +14,7 @@ import { AppComponent } from '../../app.component';
 })
 export class HeaderComponent {
   isLoggedIn: Observable<boolean>;
+  show: boolean = false;
   user: any = '';
 
   constructor(public authService: AuthService) {

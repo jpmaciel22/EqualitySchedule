@@ -6,12 +6,18 @@
     </div>
     <div class="nav-buttons">
         <button class="nav-button" routerLink='./'>Home</button>
-        <button routerLink='/tasks' class="nav-button">Meus Agendamentos</button>
+        <div class="dropdown" (mouseenter)="show = true" (mouseleave)="show = false">
+            <span class="nav-button">Usuário ▼</span>
+            <div class="dropdown-content" *ngIf="show">
+                <a class="nav-button" routerLink="/tasks">Meus Agendamentos</a>
+                <a class="nav-button" routerLink="/register/endereco">Cadastrar endereço</a>
+            </div>
+        </div>
         <div *ngIf="!(isLoggedIn | async)">
-        <button routerLink='/login'class="nav-button">Login</button>
+            <button routerLink='/login' class="nav-button">Login</button>
         </div>
         <div *ngIf="isLoggedIn | async">
-        <button (click)='authService.logout()'class="nav-button">Logout</button>
+            <button (click)='authService.logout()' class="nav-button">Logout</button>
         </div>
     </div>
 </nav>
