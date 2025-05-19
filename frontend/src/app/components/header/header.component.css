@@ -1,54 +1,87 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Ubuntu', sans-serif;
-        }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: #211a21;
-            box-shadow: 0 2px 4px rgba(188, 97, 159, 0.8);
-        }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #211a21;
+    box-shadow: 0 2px 4px rgba(188, 97, 159, 0.8);
+}
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
+.logo {
+    display: flex;
+    align-items: center;
+}
 
-        .logo img {
-            height: 60px;
-            margin-right: 10px;
-        }
+.logo img {
+    height: 60px;
+    margin-right: 10px;
+}
 
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #fdf1ff;
-        }
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fdf1ff;
+}
 
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-        }
+.nav-buttons {
+    align-items: center; 
+    display: flex;
+    gap: 1rem;
+}
 
-        .nav-button {
-            padding: 0.5rem 1rem;
-            background-color: transparent;
-            border: none;
-            color: #e77ef3dc;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
+.nav-button {
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: none;
+    color: #e77ef3dc;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
 
-        .nav-button:hover {
-            background-color: #e9ecef;
-            color: #b30095;
-        }
+.nav-button:hover {
+    background-color: #e9ecef;
+    color: #b30095;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    min-width: 180px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-content a:hover {
+    background-color: #f3f3f3;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
