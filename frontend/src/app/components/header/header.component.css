@@ -63,7 +63,7 @@
     display: none;
     flex-direction: column;
     position: absolute;
-    background-color: white;
+    background-color: #211a21;
     min-width: 180px;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -71,15 +71,16 @@
 }
 
 .dropdown-content a {
-    color: #333;
+    color: #e77ef3dc;
     padding: 10px 15px;
     text-decoration: none;
     display: block;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #e77ef3dc;
 }
 
 .dropdown-content a:hover {
-    background-color: #f3f3f3;
+    background-color: #e9ecef;
+    color: #b30095;
 }
 
 .dropdown:hover .dropdown-content {
