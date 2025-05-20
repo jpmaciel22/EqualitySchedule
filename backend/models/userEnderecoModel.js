@@ -3,7 +3,7 @@ const sequelize = require('../database');
 const User = require('./userModel');
 
 const UserEndereco = sequelize.define('userEndereco', {
-  id_end: {
+  id_endereco: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -24,7 +24,7 @@ const UserEndereco = sequelize.define('userEndereco', {
   id_user: {
     type: DataTypes.STRING,
     references: {
-      model: 'User',
+      model: 'Users',
       key: 'cpf',
     },
     onDelete: 'CASCADE',

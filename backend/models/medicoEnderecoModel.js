@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const Medico = require('./medicoModel');
 
-const EnderecoMedico = sequelize.define('EnderecoMedico', {
+const MedicoEndereco = sequelize.define('medicoEndereco', {
   id_endereco: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -24,7 +24,7 @@ const EnderecoMedico = sequelize.define('EnderecoMedico', {
   id_medico: {
     type: DataTypes.STRING,
     references: {
-      model: 'Medico',
+      model: 'Medicos',
       key: 'cpf',
     },
     onDelete: 'CASCADE',
@@ -32,7 +32,7 @@ const EnderecoMedico = sequelize.define('EnderecoMedico', {
   }
 });
 
-EnderecoMedico.belongsTo(Medico, { foreignKey: 'id_medico' });
-Medico.hasMany(EnderecoMedico, { foreignKey: 'id_medico' });
+MedicoEndereco.belongsTo(Medico, { foreignKey: 'id_medico' });
+Medico.hasMany(MedicoEndereco, { foreignKey: 'id_medico' });
 
-module.exports = EnderecoMedico;
+module.exports = MedicoEndereco;

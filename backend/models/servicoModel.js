@@ -13,7 +13,7 @@ const Servico = sequelize.define('Servico', {
     type: DataTypes.STRING,
     allowNull: false,
     references: {
-      model: Medico,
+      model: 'Medico',
       key: 'cpf',
     },
     onDelete: 'CASCADE',
