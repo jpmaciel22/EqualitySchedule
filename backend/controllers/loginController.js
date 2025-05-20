@@ -50,7 +50,8 @@ exports.login = async (req, res, next) => {
         email: testeUserEncontrado.email,
         type: typeUser
       };
-      const token = jwt.sign( { payload }, process.env.SECRET_KEY, { expiresIn: '1h' });
+      const token = jwt.sign( { payload }, process.env.SECRET_KEY, { expiresIn: '1h',
+         algorithm: 'RS256',});
       res.status(200).json({ token });
     }
     if (!testeUserEncontrado) {
