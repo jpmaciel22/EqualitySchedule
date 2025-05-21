@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { LoginService } from '../../../services/login.service';
-import { Router } from '@angular/router';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { EnderecoService } from '../../../services/endereco.service';
 
 @Component({
   selector: 'app-endereco',
@@ -13,20 +12,32 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './endereco.component.css'
 })
 export class EnderecoComponent {
-    constructor(private loginService: LoginService, private router: Router, private auth: AuthService) { }
+    constructor(private enderecoService: EnderecoService, private auth: AuthService) { }
   error: string = '';
   rua: string = '';
   cidade: string = '';
   estado: string = '';
   typeUser: string = '';
   user: any = '';
+  cpf: string = '';
 
  ngOnInit(){
   this.user = this.auth.user()
   this.typeUser = this.user.payload.type;
+  this.cpf = this.user.payload.cpf;
 }
 
   onRegisterEndereco(){
-    console.log('porraaaa')
+    this.enderecoService.cadastrar(this.rua,this.cidade,this.estado,this.typeUser, this.cpf).subscribe({
+      next: (res) => {
+        console.log('Endereco cadastrado com sucesso.',res)
+      },
+      error: (error) => {
+        console.error('Erro de cadastro:', error.error);
+        console.log('type',this.user.payload.type)
+        console.log('typeuser', this.typeUser)
+        this.error = error.error.message;
+      }
+    })
   }
 }

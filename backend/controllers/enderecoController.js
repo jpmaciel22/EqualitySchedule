@@ -4,8 +4,8 @@ const MedicoEndereco = require('../models/medicoEnderecoModel');
 
 exports.createEndereco = async (req, res, next) => {
   try {
-    const {rua, cidade, estado, cpf} = req.body;
-    const typeUser = req.body.type;
+    const {rua, cidade, estado, cpf, typeUser} = req.body;
+    console.log(req.body)
 
     if (typeUser == 'cliente') {
       await UserEndereco.create({ rua, cidade, estado, id_user: cpf });
