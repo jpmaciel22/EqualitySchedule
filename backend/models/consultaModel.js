@@ -13,6 +13,11 @@ const ConsultaAgenda = sequelize.define('ConsultaAgenda', {
     type: DataTypes.TIME,
     allowNull: false
   },
+  descricao: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    require: true,
+  },
   id_user: {
     type: DataTypes.STRING,
     allowNull: false,
