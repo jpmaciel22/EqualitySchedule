@@ -6,7 +6,7 @@
     </div>
     <div class="nav-buttons">
         <button class="nav-button" routerLink='./'>Home</button>
-        <div class="dropdown" (mouseenter)="show = true" (mouseleave)="show = false">
+        <div class="dropdown" (mouseenter)="show = true" (mouseleave)="show = false" *ngIf="isLoggedIn | async">
             <span class="nav-button">Usuário ▼</span>
             <div class="dropdown-content" *ngIf="show">
                 <a class="nav-button" routerLink="/tasks">Meus Agendamentos</a>
