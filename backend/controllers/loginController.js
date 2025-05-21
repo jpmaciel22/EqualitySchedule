@@ -27,7 +27,6 @@ exports.register = async (req, res, next) => {
     }
     return res.status(400).json({ success: false, message: 'Tipo de usuário inválido.' });
   } catch (error) {
-    console.log(req.body)
     return res.status(500).json(error, { success: false ,message: 'Algo falhou.' });
   }
 }

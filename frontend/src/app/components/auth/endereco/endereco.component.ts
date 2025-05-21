@@ -34,8 +34,6 @@ export class EnderecoComponent {
       },
       error: (error) => {
         console.error('Erro de cadastro:', error.error);
-        console.log('type',this.user.payload.type)
-        console.log('typeuser', this.typeUser)
         this.error = error.error.message;
       }
     })
