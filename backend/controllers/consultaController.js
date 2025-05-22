@@ -5,7 +5,7 @@ const MedEnd = require('../models/medicoEnderecoModel')
 const UsEnd = require('../models/userEnderecoModel')
 require('dotenv').config();
 
-exports.criaConsulta() = async (req, res, next) => {
+exports.criaConsulta = async (req, res, next) => {
     try{
         const {codigo, horario, id_user, id_medico, descricao} = req.body
         await Consulta.create({codigo, horario, id_user, id_medico, descricao});
