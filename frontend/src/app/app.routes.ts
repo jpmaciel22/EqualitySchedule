@@ -7,12 +7,15 @@ import { authGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UserTasksComponent } from './components/tasks/user-tasks/user-tasks.component';
 import { EnderecoComponent } from './components/auth/endereco/endereco.component';
+import { NewTaskComponent } from './components/tasks/new-task/new-task.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: HomeComponent, canActivate: [authGuard]},
     { path: 'register', component: RegisterComponent },
     { path: 'register/endereco', component: EnderecoComponent, canActivate: [authGuard] },
-    {path: 'tasks', component: UserTasksComponent, canActivate: [authGuard]},
+    {path: 'tasks', component: UserTasksComponent, canActivate: [authGuard], children:[
+        {path:'new-task', component: NewTaskComponent, canActivate: [authGuard]}
+    ]},
     {path: '**', component: NotFoundComponent},
 ];

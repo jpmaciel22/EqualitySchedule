@@ -1,9 +1,11 @@
 <div class="main">
-  <h2>Suas consultas</h2>
+  <div class="header-row">
+    <h2>Suas consultas</h2>
+    <button class="create-btn" routerLink="/tasks/new-task">Criar consulta</button>
+  </div>
   <p class="subtext">Olá, {{ user.payload?.nome || 'usuário' }}</p>
 
   <div class="carousel">
-    
     <div class="carousel-track">
       <div class="task-card" *ngFor="let task of tasks">
         <p class="task-title">{{ task.titulo }}</p>
@@ -29,3 +31,10 @@
     </div>
   </div>
 </div>
+
+<ng-container *ngIf="isOpen">
+  <div class="modal-overlay" (click)="closeModal()"></div>
+  <div class="modal-content">
+    <app-new-task />
+  </div>
+</ng-container>

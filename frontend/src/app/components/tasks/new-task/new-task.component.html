@@ -1,1 +1,11 @@
-<p>new-task works!</p>
+<div class="main">
+<h2>Adicionar uma consulta</h2>
+<form (ngSubmit)="teste()">
+<input placeholder="Data" type="datetime-local" required [(ngModel)]="data" name="data">
+<textarea placeholder="Descricao" type="text" required [(ngModel)]="descricao" name="descricao">
+</textarea>
+<input placeholder="Medico" type="text" required [(ngModel)]="medico" name="medico">
+<br>
+<button type="submit">Registrar</button>
+</form>
+</div>

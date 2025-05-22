@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { NewTaskComponent } from '../new-task/new-task.component';
+
 
 @Component({
   selector: 'app-user-tasks',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, NewTaskComponent],
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css'
 })
@@ -26,11 +29,14 @@ pendentes = [
   { nome: 'Consulta Jurídica' },
 ];
 
-
+  isOpen: boolean = false;
   user: any;
   email: any =  '';
   userId: any = '';
-  constructor(private auth: AuthService){
+  constructor(private auth: AuthService, private router: Router){
+    this.router.events.subscribe(() => {
+      this.isOpen = this.router.url.includes('/tasks/new-task');
+    });
   }
    ngOnInit(){
     this.user = this.auth.user()
@@ -44,5 +50,10 @@ pendentes = [
   this.email = this.email.split('@');
   this.userId = this.email[0]
   console.log(this.userId)
+  }
+
+  
+  closeModal() {
+    this.router.navigate(['/tasks']);
   }
 }
