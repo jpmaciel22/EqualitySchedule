@@ -10,7 +10,7 @@ const ConsultaAgenda = sequelize.define('ConsultaAgenda', {
     allowNull: false
   },
   horario: {
-    type: DataTypes.DATE,
+    type: 'timestamp without time zone',
     allowNull: false,
   },
   descricao: {
@@ -37,7 +37,7 @@ const ConsultaAgenda = sequelize.define('ConsultaAgenda', {
     },
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
-  },}, {timestamps: false});
+  },});
 
 ConsultaAgenda.belongsTo(User, { foreignKey: 'id_user' });
 User.hasMany(ConsultaAgenda, { foreignKey: 'id_user' });

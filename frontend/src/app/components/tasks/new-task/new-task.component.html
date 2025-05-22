@@ -1,11 +1,19 @@
 <div class="main">
 <h2>Adicionar uma consulta</h2>
-<form (ngSubmit)="teste()">
+<form (ngSubmit)="criarTask()">
 <input placeholder="Data" type="datetime-local" required [(ngModel)]="data" name="data">
 <textarea placeholder="Descricao" type="text" required [(ngModel)]="descricao" name="descricao">
 </textarea>
 <input placeholder="Medico" type="text" required [(ngModel)]="medico" name="medico">
 <br>
 <button type="submit">Registrar</button>
+  @if(success){
+  <br><br>
+  <ngb-alert class="success" type="success" [dismissible]="false" style="padding: 3px;">{{success}}</ngb-alert>
+  }
 </form>
+  @if(error){
+    <br>
+  <ngb-alert type="danger" [dismissible]="false" style="padding: 3px;">{{error}}</ngb-alert>
+  }
 </div>
