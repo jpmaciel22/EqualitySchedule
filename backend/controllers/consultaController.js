@@ -19,17 +19,17 @@ exports.criaConsulta = async (req, res, next) => {
 
 exports.queryByParams = async (req, res, next) => {
     try {
-        const medicoAlvo = req.body.medico;
+        const pesquisa = req.body;
         const medicos = await sequelize.query(
-            'SELECT * FROM Medico WHERE nome LIKE ?', {
-                replacements: [`%${medicoAlvo}%`],
+            'SELECT * FROM Medico WHERE nome LIKE :pesquisa OR regiao LIKE :pesquisa', {
+                replacements: {pesquisa:`%${pesquisa}%`},
                 type: sequelize.QueryTypes.SELECT
             }
         );
 
         console.log("Medicos: " + medicos);
-
         if (!medicos) return res.status(400).json(err, { success: false, message: 'Médico não encontrado.' });
+        
         return res.status(201).json({ success: true, message: 'Médico encontrado.'})
     } catch (err) {
         return res.status(500).json(err, { success: false, message: 'Algo falhou.' });
