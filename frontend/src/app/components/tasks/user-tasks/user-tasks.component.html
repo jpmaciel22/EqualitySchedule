@@ -1,7 +1,9 @@
 <div class="main">
   <div class="header-row">
     <h2>Suas consultas</h2>
+    <div *ngIf="user.payload.type == 'cliente'">
     <button class="create-btn" routerLink="/tasks/new-task">Criar consulta</button>
+    </div>
   </div>
   <p class="subtext">Olá, {{ user.payload?.nome || 'usuário' }}</p>
 
@@ -12,7 +14,7 @@
         <p class="task-info">{{ task.info }}</p>
       </div>
     </div>
-    
+
   </div>
 
   <div class="status-grids">
@@ -32,9 +34,9 @@
   </div>
 </div>
 
-<ng-container *ngIf="isOpen">
-  <div class="modal-overlay" (click)="closeModal()"></div>
-  <div class="modal-content">
-    <app-new-task />
-  </div>
-</ng-container>
+  <ng-container *ngIf="isOpen">
+    <div class="modal-overlay" (click)="closeModal()"></div>
+    <div class="modal-content">
+      <app-new-task />
+    </div>
+  </ng-container>

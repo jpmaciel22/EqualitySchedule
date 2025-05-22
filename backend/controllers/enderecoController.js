@@ -22,3 +22,5 @@ exports.createEndereco = async (req, res, next) => {
     return res.status(500).json(error, { success: false, message: 'Algo falhou.' });
   }
 }
+
+//criar um getall
