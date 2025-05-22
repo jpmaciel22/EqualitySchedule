@@ -12,7 +12,6 @@ const ConsultaAgenda = sequelize.define('ConsultaAgenda', {
   horario: {
     type: DataTypes.DATE,
     allowNull: false,
-    timestamps: false 
   },
   descricao: {
     type: DataTypes.TEXT,
@@ -23,7 +22,7 @@ const ConsultaAgenda = sequelize.define('ConsultaAgenda', {
     type: DataTypes.STRING,
     allowNull: false,
     references: {
-      model: 'User',
+      model: 'Users',
       key: 'cpf'
     },
     onDelete: 'CASCADE',
@@ -33,14 +32,12 @@ const ConsultaAgenda = sequelize.define('ConsultaAgenda', {
     type: DataTypes.STRING,
     allowNull: false,
     references: {
-      model: 'Medico',
+      model: 'Medicos',
       key: 'cpf'
     },
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
-  },
-  timestamps: false,
-});
+  },}, {timestamps: false});
 
 ConsultaAgenda.belongsTo(User, { foreignKey: 'id_user' });
 User.hasMany(ConsultaAgenda, { foreignKey: 'id_user' });

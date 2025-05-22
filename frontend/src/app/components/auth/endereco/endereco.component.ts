@@ -20,6 +20,7 @@ export class EnderecoComponent {
   typeUser: string = '';
   user: any = '';
   cpf: string = '';
+  success: string = '';
 
  ngOnInit(){
   this.user = this.auth.user()
@@ -31,6 +32,7 @@ export class EnderecoComponent {
     this.enderecoService.cadastrar(this.rua,this.cidade,this.estado,this.typeUser, this.cpf).subscribe({
       next: (res) => {
         console.log('Endereco cadastrado com sucesso.',res)
+        this.success = res.message
       },
       error: (error) => {
         console.error('Erro de cadastro:', error.error);
