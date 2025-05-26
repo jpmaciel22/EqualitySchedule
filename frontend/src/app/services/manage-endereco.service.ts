@@ -11,4 +11,8 @@ export class ManageEnderecoService {
     const body = {cpf, typeUser};
     return this.http.post('http://localhost:3000/endereco/get', body)
   }
+  deletar(id:any,cpf:any,typeUser:any){
+    const body = {id,cpf,typeUser};
+    return this.http.post('http://localhost:3000/endereco/delete',body)
+  }
 }

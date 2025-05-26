@@ -1,9 +1,10 @@
-
 @for(end of enderecos; track enderecos.id; let index = $index){
-   <div class="main">
+<div class="main">
     <h1>Endereço {{index+1}}</h1>
     <p class="task-title">Cidade: {{end.cidade}}</p>
     <p class="task-title">Estado: {{end.estado}}</p>
     <p class="task-title">Rua: {{end.rua}}</p>
-   </div> 
+    <button (click)="deleteOne(end.id_endereco)" type="submit">Deletar Endereço</button>
+</div>
+
 }

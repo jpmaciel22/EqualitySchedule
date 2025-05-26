@@ -4,5 +4,6 @@ const enderecoController = require('../controllers/enderecoController');
 
 router.post('/', enderecoController.createEndereco);
 router.post('/get', enderecoController.getAll);
+router.post('/delete',enderecoController.deleteOne);
 
 module.exports = router;
