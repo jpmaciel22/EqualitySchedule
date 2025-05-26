@@ -6,5 +6,7 @@
     <p class="task-title">Rua: {{end.rua}}</p>
     <button (click)="deleteOne(end.id_endereco)" type="submit">Deletar Endereço</button>
 </div>
-
+}
+@if(enderecos.length == 0){
+<h1 class="main">Não há enderecos registrados.</h1>
 }
