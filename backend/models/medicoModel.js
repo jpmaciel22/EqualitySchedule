@@ -29,6 +29,11 @@ const Medico = sequelize.define('Medico', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  especificacao: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    require: true,
+  }
 });
 
 

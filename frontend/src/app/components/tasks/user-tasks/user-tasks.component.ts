@@ -3,56 +3,67 @@ import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NewTaskComponent } from '../new-task/new-task.component';
+import { TaskService } from '../../../services/task.service';
+import { PostgredatepipePipe } from '../../../pipes/postgredatepipe.pipe';
 
 
 @Component({
   selector: 'app-user-tasks',
-  imports: [CommonModule, RouterLink, NewTaskComponent],
+  imports: [CommonModule, RouterLink, NewTaskComponent, PostgredatepipePipe],
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css'
 })
-
 export class UserTasksComponent {
+  tasks: any[] = [];
 
-tasks = [
-  { titulo: 'Consulta Nutricional', info: '12/06 às 14:00' },
-  { titulo: 'Atendimento Psicológico', info: '13/06 às 10:00' },
-];
+  realizadas = [
+    { nome: 'Consulta de Maio' },
+    { nome: 'Avaliação Psicológica' },
+  ];
 
-realizadas = [
-  { nome: 'Consulta de Maio' },
-  { nome: 'Avaliação Psicológica' },
-];
-
-pendentes = [
-  { nome: 'Nutrição Junho' },
-  { nome: 'Consulta Jurídica' },
-];
+  pendentes = [
+    { nome: 'Nutrição Junho' },
+    { nome: 'Consulta Jurídica' },
+  ];
 
   isOpen: boolean = false;
   user: any;
-  email: any =  '';
+  email: any = '';
   userId: any = '';
-  constructor(private auth: AuthService, private router: Router){
+  constructor(private auth: AuthService, private router: Router, private consultas: TaskService) {
     this.router.events.subscribe(() => {
       this.isOpen = this.router.url.includes('/tasks/new-task');
     });
   }
-   ngOnInit(){
+  ngOnInit() {
     this.user = this.auth.user()
     if (this.user) {
       console.log('Usuário logado:', this.user);
     }
     this.transformaId();
+    this.consultas.getAllTasks(this.user?.payload.cpf).subscribe({
+      next: (res: any) => {
+        console.log(res)
+        this.tasks = res.data
+      }
+    })
+    this.consultas.wasTaskUpdated.subscribe(() => {
+      this.consultas.getAllTasks(this.user?.payload.cpf).subscribe({
+        next: (res: any) => {
+          console.log(res)
+          this.tasks = res.data
+        }
+      })
+    })
   }
-  transformaId(){
-  this.email = this.user?.payload.email;
-  this.email = this.email.split('@');
-  this.userId = this.email[0]
-  console.log(this.userId)
+  transformaId() {
+    this.email = this.user?.payload.email;
+    this.email = this.email.split('@');
+    this.userId = this.email[0]
+    console.log(this.userId)
   }
 
-  
+
   closeModal() {
     this.router.navigate(['/tasks']);
   }

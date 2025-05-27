@@ -20,12 +20,13 @@ export class RegisterComponent {
   telefone: string = '';
   nome: string = '';
   regiao: string = '';
+  especificacao: string = '';
   error: string = '';
   constructor(private loginService: LoginService, private router: Router) { }
 
   onRegister() {
     if (this.email.includes('@') && this.email.includes('.com')) {
-      this.loginService.register(this.email, this.password, this.typeUser, this.nome, this.cpf, this.telefone, this.regiao).subscribe({
+      this.loginService.register(this.email, this.password, this.typeUser, this.nome, this.cpf, this.telefone, this.regiao, this.especificacao).subscribe({
         next: (response) => {
           this.router.navigate(['../', 'login']);
           console.log('Res:', response)

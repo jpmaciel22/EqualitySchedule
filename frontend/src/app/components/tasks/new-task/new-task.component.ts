@@ -29,6 +29,8 @@ export class NewTaskComponent {
     this.task.criarTask(this.codigo, this.data, this.descricao, this.user, this.medico).subscribe({
       next: (res: any) => {
         this.success = res.message;
+        this.task.taskWasCreated();
+        console.log(this.data)
         return;
       },error: (error) => {
           const msgSuccess = document.querySelector('.success');

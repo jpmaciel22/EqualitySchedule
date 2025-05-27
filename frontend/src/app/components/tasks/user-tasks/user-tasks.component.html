@@ -10,8 +10,9 @@
   <div class="carousel">
     <div class="carousel-track">
       <div class="task-card" *ngFor="let task of tasks">
-        <p class="task-title">{{ task.titulo }}</p>
-        <p class="task-info">{{ task.info }}</p>
+        <p class="task-title">{{ task.horario | postgredatepipe }}</p>
+        <p class="task-info">{{ task.descricao }}</p>
+        <p class="task-info">{{task.id_medico}}</p>
       </div>
     </div>
 

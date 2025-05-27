@@ -12,6 +12,7 @@
   </select>
   @if(typeUser == 'medico'){
     <input type="text" [(ngModel)]="regiao" name="regiao" placeholder="🌐 Região" required>
+    <input type="text" [(ngModel)]="especificacao" name="especificacao" placeholder="💼 Especificação" required>
   }
   <button type="submit">Registrar</button>
 </form>
