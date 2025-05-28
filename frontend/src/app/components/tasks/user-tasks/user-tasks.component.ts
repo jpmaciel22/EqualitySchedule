@@ -38,14 +38,14 @@ export class UserTasksComponent {
     });
   }
 
- loadTasks(): Observable<any> {
-  return this.consultas.getAllTasks(this.user?.payload.cpf, this.user?.payload.type).pipe(
-    tap((res:any)=> {
-      this.tasks = res.data;
-      console.log(this.tasks)
-    })
-  );
-}
+  loadTasks(): Observable<any> {
+    return this.consultas.getAllTasks(this.user?.payload.cpf, this.user?.payload.type).pipe(
+      tap((res: any) => {
+        this.tasks = res.data;
+        console.log(this.tasks)
+      })
+    );
+  }
 
   sortToday() {
     const today = new Date();
@@ -61,8 +61,6 @@ export class UserTasksComponent {
     if (this.user) {
       console.log('Usuário logado:', this.user);
     }
-    this.loadTasks();
-    this.transformaId();
     forkJoin([
       this.loadTasks()
     ]).subscribe({
@@ -70,9 +68,16 @@ export class UserTasksComponent {
         this.sortToday();
       }
     })
-    // this.consultas.wasTaskUpdated.subscribe(() => {
-    //   this.loadTasks();
-    // })
+    this.consultas.wasTaskUpdated.subscribe(() => {
+      console.log('fui chamado')
+      forkJoin([
+        this.loadTasks()
+      ]).subscribe({
+        next: () => {
+          this.sortToday();
+        }
+      })
+    })
   }
   transformaId() {
     this.email = this.user?.payload.email;

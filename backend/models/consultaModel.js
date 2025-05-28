@@ -18,6 +18,11 @@ const ConsultaAgenda = sequelize.define('ConsultaAgenda', {
     allowNull: false,
     require: true,
   },
+  status: {
+    type: DataTypes.STRING,
+    require: true,
+    defaultValue: 'em-andamento'
+  },
   id_user: {
     type: DataTypes.STRING,
     allowNull: false,

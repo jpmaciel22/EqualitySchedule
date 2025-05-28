@@ -39,7 +39,6 @@ exports.queryByParams = async (req, res, next) => {
 exports.getAll = async (req, res, next) => {
     const id = req.body.id
     const typeUser = req.body.typeUser
-    console.log(req.body)
     if (typeUser == 'cliente') {
         const consultas = await ConsultaAgenda.findAll({ where: { 'id_user': id } });
         if (!consultas) {
@@ -48,7 +47,6 @@ exports.getAll = async (req, res, next) => {
         if (id == null) {
             return res.status(500).json({ success: false, message: 'Cpf inválido.' })
         }
-        console.log(consultas)
         return res.status(201).json({ success: true, data: consultas })
     }
         if (typeUser == 'medico') {
