@@ -23,8 +23,8 @@ export class TaskService {
 
   }
 
-  getAllTasks(id_user: string){
-    const body = {id_user};
+  getAllTasks(id: string, typeUser: string){
+    const body = {id, typeUser};
     return this.http.post('http://localhost:3000/tasks',body);
   }
 }

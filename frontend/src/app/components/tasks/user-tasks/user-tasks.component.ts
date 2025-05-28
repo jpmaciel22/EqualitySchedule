@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/route
 import { NewTaskComponent } from '../new-task/new-task.component';
 import { TaskService } from '../../../services/task.service';
 import { PostgredatepipePipe } from '../../../pipes/postgredatepipe.pipe';
+import { forkJoin, Observable, tap } from 'rxjs';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { PostgredatepipePipe } from '../../../pipes/postgredatepipe.pipe';
 })
 export class UserTasksComponent {
   tasks: any[] = [];
+  tasksToday: any[] = [];
 
   realizadas = [
     { nome: 'Consulta de Maio' },
@@ -35,26 +37,42 @@ export class UserTasksComponent {
       this.isOpen = this.router.url.includes('/tasks/new-task');
     });
   }
+
+ loadTasks(): Observable<any> {
+  return this.consultas.getAllTasks(this.user?.payload.cpf, this.user?.payload.type).pipe(
+    tap((res:any)=> {
+      this.tasks = res.data;
+      console.log(this.tasks)
+    })
+  );
+}
+
+  sortToday() {
+    const today = new Date();
+    const todayDate = today.toISOString().split('T')[0]; // '2025-05-28'
+    this.tasksToday = this.tasks.filter(i => {
+      const taskDate = new Date(i.horario).toISOString().split('T')[0];
+      return taskDate === todayDate;
+    });
+  }
+
   ngOnInit() {
     this.user = this.auth.user()
     if (this.user) {
       console.log('Usuário logado:', this.user);
     }
+    this.loadTasks();
     this.transformaId();
-    this.consultas.getAllTasks(this.user?.payload.cpf).subscribe({
-      next: (res: any) => {
-        console.log(res)
-        this.tasks = res.data
+    forkJoin([
+      this.loadTasks()
+    ]).subscribe({
+      next: () => {
+        this.sortToday();
       }
     })
-    this.consultas.wasTaskUpdated.subscribe(() => {
-      this.consultas.getAllTasks(this.user?.payload.cpf).subscribe({
-        next: (res: any) => {
-          console.log(res)
-          this.tasks = res.data
-        }
-      })
-    })
+    // this.consultas.wasTaskUpdated.subscribe(() => {
+    //   this.loadTasks();
+    // })
   }
   transformaId() {
     this.email = this.user?.payload.email;

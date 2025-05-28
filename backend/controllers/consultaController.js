@@ -37,13 +37,30 @@ exports.queryByParams = async (req, res, next) => {
 }
 
 exports.getAll = async (req, res, next) => {
-    const id_user = req.body.id_user
-    const consultas = await ConsultaAgenda.findAll({ where: { 'id_user': id_user } });
-    if (!consultas) {
-        return res.status(401).json({ success: false, message: 'Nenhuma consulta encontrada.' })
+    const id = req.body.id
+    const typeUser = req.body.typeUser
+    console.log(req.body)
+    if (typeUser == 'cliente') {
+        const consultas = await ConsultaAgenda.findAll({ where: { 'id_user': id } });
+        if (!consultas) {
+            return res.status(401).json({ success: false, message: 'Nenhuma consulta encontrada.' })
+        }
+        if (id == null) {
+            return res.status(500).json({ success: false, message: 'Cpf inválido.' })
+        }
+        console.log(consultas)
+        return res.status(201).json({ success: true, data: consultas })
     }
-    if (id_user == null) {
-        return res.status(500).json({ success: false, message: 'Cpf inválido.' })
+        if (typeUser == 'medico') {
+        const consultas = await ConsultaAgenda.findAll({ where: { 'id_medico': id } });
+        if (!consultas) {
+            return res.status(401).json({ success: false, message: 'Nenhuma consulta encontrada.' })
+        }
+        if (id == null) {
+            return res.status(500).json({ success: false, message: 'Cpf inválido.' })
+        }
+        return res.status(201).json({ success: true, data: consultas })
     }
-    return res.status(201).json({ success: true, data: consultas })
+
+
 }
