@@ -33,8 +33,8 @@ export class UserTasksComponent {
   loadTasks(): Observable<any> {
     return this.consultas.getAllTasks(this.user?.payload.cpf, this.user?.payload.type).pipe(
       tap((res: any) => {
-        this.tasks = res.data;
-        console.log(this.tasks)
+        console.log('response',res)
+        this.tasks = res?.data
       })
     );
   }
@@ -58,7 +58,6 @@ export class UserTasksComponent {
 
   sortRealizadas() {
     this.realizadas = this.tasks.filter(i => {
-      console.log('cheguei')
       return i.status == 'realizado'
     })
   }
@@ -81,7 +80,6 @@ export class UserTasksComponent {
   ngOnInit() {
     this.user = this.auth.user()
     if (this.user) {
-      console.log('Usuário logado:', this.user);
     }
     forkJoin([
       this.loadTasks(),

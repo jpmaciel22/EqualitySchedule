@@ -17,17 +17,18 @@ export class NewTaskComponent {
   data: any;
   descricao: string = '';
   user: any;
-  medico: any;
+  medico_cpf: any;
   error: any;
   success: string = '';
-  pesquisando: boolean = false;
+  medicos: any[] = [];
 
   ngOnInit(){
         this.user = this.auth.user();
         this.user = this.user.payload.cpf;
+        this.loadMedicos()
   }
   criarTask(){
-    this.task.criarTask(this.codigo, this.data, this.descricao, this.user, this.medico).subscribe({
+    this.task.criarTask(this.codigo, this.data, this.descricao, this.user, this.medico_cpf).subscribe({
       next: (res: any) => {
         this.success = res.message;
         this.task.taskWasCreated();
@@ -42,9 +43,16 @@ export class NewTaskComponent {
         }
     },)
   }
-
-  pesquisar(){
-    this.pesquisando = true;
+  loadMedicos(){
+    this.task.getMedicos().subscribe({
+      next: (res:any) => {
+        this.medicos = res?.data
+        console.log(res)
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 
 }

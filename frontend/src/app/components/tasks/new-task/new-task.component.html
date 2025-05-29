@@ -4,14 +4,13 @@
 <input placeholder="Data" type="datetime-local" required [(ngModel)]="data" name="data">
 <textarea placeholder="Descricao" type="text" required [(ngModel)]="descricao" name="descricao">
 </textarea>
-<input placeholder="Medico" type="text" required [(ngModel)]="medico" name="medico">
-<button (click)="pesquisar()">🔍</button>
 <br>
-@if(pesquisando == true){
-  <h1>TESTE</h1>
-  <button (click)="pesquisando = false">terminar</button>
-  <br>
-}
+<br>
+<select name='select' [(ngModel)]="medico_cpf">
+  <option [ngValue]="i.cpf" *ngFor="let i of medicos">{{i.nome}} - {{i.especificacao}}</option>
+</select>
+<br>
+<br>
 <button type="submit">Registrar</button>
   @if(success){
   <br><br>
