@@ -69,10 +69,6 @@ export class UserTasksComponent {
         this.loadTasks().subscribe({
           next: () => {
             this.sortToday();
-          }
-        })
-        this.loadTasks().subscribe({
-          next: () => {
             this.sortRealizadas();
           }
         })
