@@ -62,3 +62,11 @@ exports.getAll = async (req, res, next) => {
 
 
 }
+exports.realizada = async (req,res,next) => {
+    const {codigo} = req.body
+    const consulta = await ConsultaAgenda.findOne({ where: { 'codigo': codigo } });
+    consulta.status = 'realizado'
+    await consulta.save();
+    console.log(req.body)
+    res.status(201).json({success: true, message: 'Consulta atualizada'})
+}

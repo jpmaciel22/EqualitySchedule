@@ -17,16 +17,8 @@ import { forkJoin, Observable, tap } from 'rxjs';
 export class UserTasksComponent {
   tasks: any[] = [];
   tasksToday: any[] = [];
-
-  realizadas = [
-    { nome: 'Consulta de Maio' },
-    { nome: 'Avaliação Psicológica' },
-  ];
-
-  pendentes = [
-    { nome: 'Nutrição Junho' },
-    { nome: 'Consulta Jurídica' },
-  ];
+  pendentes:any[] = [];
+  realizadas: any[] = [];
 
   isOpen: boolean = false;
   user: any;
@@ -52,29 +44,63 @@ export class UserTasksComponent {
     const todayDate = today.toISOString().split('T')[0]; // '2025-05-28'
     this.tasksToday = this.tasks.filter(i => {
       const taskDate = new Date(i.horario).toISOString().split('T')[0];
-      return taskDate === todayDate;
+      return taskDate === todayDate && i.status == 'em-andamento'
     });
   }
+  sortPendentes(){
+    const today = new Date();
+    const todayDate = today.toISOString().split('T')[0];
+    this.pendentes = this.tasks.filter(i => {
+      const taskDate = new Date(i.horario).toISOString().split('T')[0];
+      return taskDate > todayDate
+    })
+  }
 
+  sortRealizadas(){
+    this.realizadas = this.tasks.filter(i => {
+      console.log('cheguei')
+      return i.status == 'realizado'
+    })
+  }
+
+onRealizada(codigo: string) {
+  this.consultas.marcarRealizado(codigo).subscribe({
+    next: (res) => {
+      this.loadTasks().subscribe({
+        next: () => {
+          this.sortToday();
+        }
+      })
+      this.sortRealizadas();
+      location.reload();
+    },
+    error: (err) => {
+      console.error('Erro ao marcar como realizada:', err);
+    }
+  });
+}
   ngOnInit() {
     this.user = this.auth.user()
     if (this.user) {
       console.log('Usuário logado:', this.user);
     }
     forkJoin([
-      this.loadTasks()
+      this.loadTasks(),
     ]).subscribe({
       next: () => {
         this.sortToday();
+        this.sortPendentes();
+        this.sortRealizadas();
       }
     })
     this.consultas.wasTaskUpdated.subscribe(() => {
-      console.log('fui chamado')
       forkJoin([
-        this.loadTasks()
+        this.loadTasks(),
       ]).subscribe({
         next: () => {
           this.sortToday();
+          this.sortPendentes();
+          this.sortRealizadas();
         }
       })
     })

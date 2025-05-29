@@ -25,6 +25,11 @@ export class TaskService {
 
   getAllTasks(id: string, typeUser: string){
     const body = {id, typeUser};
-    return this.http.post('http://localhost:3000/tasks',body);
+    return this.http.post('http://localhost:3000/tasks', body);
+  }
+
+  marcarRealizado(codigo: string){
+    const body = {codigo};
+    return this.http.post('http://localhost:3000/tasks/realizar', body)
   }
 }

@@ -20,17 +20,17 @@ export class NewTaskComponent {
   medico: any;
   error: any;
   success: string = '';
+
+
   ngOnInit(){
         this.user = this.auth.user();
         this.user = this.user.payload.cpf;
   }
   criarTask(){
-    console.log(this.codigo)
     this.task.criarTask(this.codigo, this.data, this.descricao, this.user, this.medico).subscribe({
       next: (res: any) => {
         this.success = res.message;
         this.task.taskWasCreated();
-        console.log(this.data)
         return;
       },error: (error) => {
           const msgSuccess = document.querySelector('.success');

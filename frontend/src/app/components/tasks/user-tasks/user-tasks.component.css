@@ -91,7 +91,9 @@ h2 {
 
 .task-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  overflow-y: auto;
+  max-height: 500px;
   gap: 10px;
 }
 

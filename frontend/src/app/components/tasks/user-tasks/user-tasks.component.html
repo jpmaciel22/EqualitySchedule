@@ -2,7 +2,7 @@
   <div class="header-row">
     <h2>Suas consultas</h2>
     <div *ngIf="user.payload.type == 'cliente'">
-    <button class="create-btn" routerLink="/tasks/new-task">Criar consulta</button>
+      <button class="create-btn" routerLink="/tasks/new-task">Criar consulta</button>
     </div>
   </div>
   <p class="subtext">Olá, {{ user.payload?.nome || 'usuário' }}</p>
@@ -13,31 +13,39 @@
         <p class="task-title">{{ task.horario | postgredatepipe }}</p>
         <p class="task-info">{{ task.descricao }}</p>
         <p class="task-info">{{task.id_medico}}</p>
+      <button (click)="onRealizada(task.codigo)">Realizada</button>
       </div>
     </div>
-
   </div>
 
   <div class="status-grids">
     <div class="status-column">
       <h3 class="status-title">Realizadas</h3>
       <div class="task-grid">
-        <div class="status-box" *ngFor="let t of realizadas">{{ t.nome }}</div>
+        <div class="status-box" *ngFor="let task of realizadas">
+          <p class="task-title">{{ task.horario | postgredatepipe }}</p>
+          <p class="task-info">{{ task.descricao }}</p>
+          <p class="task-info">{{task.id_medico}}</p>
+        </div>
       </div>
     </div>
 
     <div class="status-column">
       <h3 class="status-title">Pendentes</h3>
       <div class="task-grid">
-        <div class="status-box pending" *ngFor="let t of pendentes">{{ t.nome }}</div>
+        <div class="status-box pending" *ngFor="let task of pendentes">
+          <p class="task-title">{{ task.horario | postgredatepipe }}</p>
+          <p class="task-info">{{ task.descricao }}</p>
+          <p class="task-info">{{task.id_medico}}</p>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-  <ng-container *ngIf="isOpen">
-    <div class="modal-overlay" (click)="closeModal()"></div>
-    <div class="modal-content">
-      <app-new-task />
-    </div>
-  </ng-container>
+<ng-container *ngIf="isOpen">
+  <div class="modal-overlay" (click)="closeModal()"></div>
+  <div class="modal-content">
+    <app-new-task />
+  </div>
+</ng-container>
