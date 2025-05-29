@@ -20,7 +20,7 @@ export class NewTaskComponent {
   medico: any;
   error: any;
   success: string = '';
-
+  pesquisando: boolean = false;
 
   ngOnInit(){
         this.user = this.auth.user();
@@ -41,6 +41,10 @@ export class NewTaskComponent {
           this.error = error.error.message
         }
     },)
+  }
+
+  pesquisar(){
+    this.pesquisando = true;
   }
 
 }

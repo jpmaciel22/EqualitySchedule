@@ -13,7 +13,9 @@
         <p class="task-title">{{ task.horario | postgredatepipe }}</p>
         <p class="task-info">{{ task.descricao }}</p>
         <p class="task-info">{{task.id_medico}}</p>
+        @if(user.payload?.type == 'cliente'){
       <button (click)="onRealizada(task.codigo)">Realizada</button>
+      }
       </div>
     </div>
   </div>

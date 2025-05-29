@@ -17,7 +17,7 @@ import { forkJoin, Observable, tap } from 'rxjs';
 export class UserTasksComponent {
   tasks: any[] = [];
   tasksToday: any[] = [];
-  pendentes:any[] = [];
+  pendentes: any[] = [];
   realizadas: any[] = [];
 
   isOpen: boolean = false;
@@ -47,7 +47,7 @@ export class UserTasksComponent {
       return taskDate === todayDate && i.status == 'em-andamento'
     });
   }
-  sortPendentes(){
+  sortPendentes() {
     const today = new Date();
     const todayDate = today.toISOString().split('T')[0];
     this.pendentes = this.tasks.filter(i => {
@@ -56,29 +56,32 @@ export class UserTasksComponent {
     })
   }
 
-  sortRealizadas(){
+  sortRealizadas() {
     this.realizadas = this.tasks.filter(i => {
       console.log('cheguei')
       return i.status == 'realizado'
     })
   }
 
-onRealizada(codigo: string) {
-  this.consultas.marcarRealizado(codigo).subscribe({
-    next: (res) => {
-      this.loadTasks().subscribe({
-        next: () => {
-          this.sortToday();
-        }
-      })
-      this.sortRealizadas();
-      location.reload();
-    },
-    error: (err) => {
-      console.error('Erro ao marcar como realizada:', err);
-    }
-  });
-}
+  onRealizada(codigo: string) {
+    this.consultas.marcarRealizado(codigo).subscribe({
+      next: (res) => {
+        this.loadTasks().subscribe({
+          next: () => {
+            this.sortToday();
+          }
+        })
+        this.loadTasks().subscribe({
+          next: () => {
+            this.sortRealizadas();
+          }
+        })
+      },
+      error: (err) => {
+        console.error('Erro ao marcar como realizada:', err);
+      }
+    });
+  }
   ngOnInit() {
     this.user = this.auth.user()
     if (this.user) {
