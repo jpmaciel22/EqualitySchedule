@@ -18,53 +18,42 @@ exports.criaConsulta = async (req, res, next) => {
 }
 
 exports.getAll = async (req, res, next) => {
-    const id = req.body.id
-    const typeUser = req.body.typeUser
-    if (typeUser == 'cliente') {
-    const consultas = await sequelize.query(`
-      SELECT 
-        c.*,
-        m.nome AS medico_nome,
-        m.especificacao AS medico_especializacao
-      FROM "ConsultaAgendas" c
-      LEFT JOIN "Medicos" m ON c.id_medico = m.cpf
-      WHERE c.id_user = :id
-    `, {
+  const { id, typeUser } = req.body;
+
+  if (!id || !typeUser) {
+    return res.status(400).json({ success: false, message: 'Parâmetros inválidos.' });
+  }
+
+  const query = `
+    SELECT 
+      c.*,
+      m.nome AS medico_nome,
+      m.especificacao AS medico_especializacao,
+      u.nome AS user_nome
+    FROM "ConsultaAgendas" c
+    LEFT JOIN "Medicos" m ON c.id_medico = m.cpf
+    LEFT JOIN "Users" u ON c.id_user = u.cpf
+    WHERE ${typeUser === 'cliente' ? 'c.id_user' : 'c.id_medico'} = :id
+  `;
+
+  try {
+    const consultas = await sequelize.query(query, {
       replacements: { id },
       type: sequelize.QueryTypes.SELECT
     });
-        if (!consultas) {
-            return res.status(401).json({ success: false, message: 'Nenhuma consulta encontrada.' })
-        }
-        if (id == null) {
-            return res.status(500).json({ success: false, message: 'Cpf inválido.' })
-        }
-        return res.status(200).json({ success: true, data: consultas })
-    }
-        if (typeUser == 'medico') {
-               const consultas = await sequelize.query(`
-      SELECT 
-        c.*,
-        m.nome AS medico_nome,
-        m.especificacao AS medico_especializacao
-      FROM "ConsultaAgendas" c
-      LEFT JOIN "Medicos" m ON c.id_medico = m.cpf
-      WHERE m.cpf = :id
-    `, {
-      replacements: { id },
-      type: sequelize.QueryTypes.SELECT
-    });
-        if (!consultas) {
-            return res.status(401).json({ success: false, message: 'Nenhuma consulta encontrada.' })
-        }
-        if (id == null) {
-            return res.status(500).json({ success: false, message: 'Cpf inválido.' })
-        }
-        return res.status(200).json({ success: true, data: consultas })
+
+    if (!consultas || consultas.length === 0) {
+      return res.status(404).json({ success: false, message: 'Nenhuma consulta encontrada.' });
     }
 
+    return res.status(200).json({ success: true, data: consultas });
 
-}
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false, message: 'Erro ao buscar consultas.' });
+  }
+};
+
 exports.realizada = async (req,res,next) => {
     const {codigo} = req.body
     const consulta = await ConsultaAgenda.findOne({ where: { 'codigo': codigo } });

@@ -12,8 +12,12 @@
       <div class="task-card" *ngFor="let task of tasksToday">
         <p class="task-title">{{ task.horario | postgredatepipe }}</p>
         <p class="task-info">{{ task.descricao }}</p>
-        <p class="task-info">{{task.medico_nome}}</p>
-        <p class="task-info">{{task.medico_especializacao}}</p>
+          @if(user.payload?.type == 'medico'){
+          <p class="task-info">{{task.user_nome}}</p>
+          }
+          @if(user.payload?.type == 'cliente'){
+          <p class="task-info">{{task.medico_nome}} - {{task.medico_especializacao}}</p>
+          }
         @if(user.payload?.type == 'cliente'){
         <button (click)="onRealizada(task.codigo)">Realizada</button>
         }
@@ -28,7 +32,12 @@
         <div class="status-box" *ngFor="let task of realizadas">
           <p class="task-title">{{ task.horario | postgredatepipe }}</p>
           <p class="task-info">Descrição: {{ task.descricao }}</p>
+          @if(user.payload?.type == 'medico'){
+          <p class="task-info">{{task.user_nome}}</p>
+          }
+          @if(user.payload?.type == 'cliente'){
           <p class="task-info">{{task.medico_nome}} - {{task.medico_especializacao}}</p>
+          }
         </div>
       </div>
     </div>
@@ -39,7 +48,12 @@
         <div class="status-box pending" *ngFor="let task of pendentes">
           <p class="task-title">{{ task.horario | postgredatepipe }}</p>
           <p class="task-info">Descrição: {{ task.descricao }}</p>
+          @if(user.payload?.type == 'medico'){
+          <p class="task-info">{{task.user_nome}}</p>
+          }
+          @if(user.payload?.type == 'cliente'){
           <p class="task-info">{{task.medico_nome}} - {{task.medico_especializacao}}</p>
+          }
         </div>
       </div>
     </div>
