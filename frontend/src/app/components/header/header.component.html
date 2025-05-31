@@ -12,6 +12,7 @@
                 <a class="nav-button" routerLink="/tasks">Meus Agendamentos</a>
                 <a class="nav-button" routerLink="/register/endereco">Cadastrar endereço</a>
                 <a class="nav-button" routerLink="/endereco/">Gerenciar Endereços</a>
+                <a *ngIf="user.payload?.type == 'cliente'" class="nav-button" routerLink="/regiao/">Encontrar Medicos</a>
             </div>
         </div>
         <div *ngIf="!(isLoggedIn | async)">

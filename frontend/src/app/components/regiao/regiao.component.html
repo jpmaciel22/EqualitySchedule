@@ -1,0 +1,11 @@
+<div class="main">
+<form (ngSubmit)="onSubmit()">
+    <input [(ngModel)]="text" name="input" type="text" placeholder="Insira uma região para encontrar médicos...">
+</form>
+</div>
+<div class="main" *ngFor="let i of medicos">
+    <h4>Medico: {{i.nome}}</h4>
+    <h4>Especificação: {{i.especificacao}}</h4>
+    <h4>Email: {{i.email}}</h4> 
+    <h4>regiao: {{i.regiao}}</h4>   
+</div>

@@ -8,13 +8,13 @@ const ConsultaAgenda = require('../models/consultaModel');
 require('dotenv').config();
 
 exports.criaConsulta = async (req, res, next) => {
-    const { codigo, data, descricao, medico_cpf, user } = req.body
-    let jaExiste = await Consulta.findOne({ where: { 'codigo': codigo } })
-    if (jaExiste) {
-        return res.status(401).json({ success: false, message: 'ID de consulta já cadastrado.' })
-    }
-    await Consulta.create({ codigo, horario: data, id_user: user, id_medico: medico_cpf, descricao });
-    return res.status(201).json({ success: true, message: 'Consulta registrada com sucesso.' });
+  const { codigo, data, descricao, medico_cpf, user } = req.body
+  let jaExiste = await Consulta.findOne({ where: { 'codigo': codigo } })
+  if (jaExiste) {
+    return res.status(401).json({ success: false, message: 'ID de consulta já cadastrado.' })
+  }
+  await Consulta.create({ codigo, horario: data, id_user: user, id_medico: medico_cpf, descricao });
+  return res.status(201).json({ success: true, message: 'Consulta registrada com sucesso.' });
 }
 
 exports.getAll = async (req, res, next) => {
@@ -54,16 +54,16 @@ exports.getAll = async (req, res, next) => {
   }
 };
 
-exports.realizada = async (req,res,next) => {
-    const {codigo} = req.body
-    const consulta = await ConsultaAgenda.findOne({ where: { 'codigo': codigo } });
-    consulta.status = 'realizado'
-    await consulta.save();
-    console.log(req.body)
-    res.status(201).json({success: true, message: 'Consulta atualizada'})
+exports.realizada = async (req, res, next) => {
+  const { codigo } = req.body
+  const consulta = await ConsultaAgenda.findOne({ where: { 'codigo': codigo } });
+  consulta.status = 'realizado'
+  await consulta.save();
+  console.log(req.body)
+  res.status(201).json({ success: true, message: 'Consulta atualizada' })
 }
 
-exports.getMedicos = async (req,res,next) => {
-    const medicos = await Medico.findAll();
-    res.status(200).json({data: medicos});
+exports.getMedicos = async (req, res, next) => {
+  const medicos = await Medico.findAll();
+  res.status(200).json({ data: medicos });
 }

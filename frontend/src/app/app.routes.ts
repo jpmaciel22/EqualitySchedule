@@ -9,6 +9,7 @@ import { UserTasksComponent } from './components/tasks/user-tasks/user-tasks.com
 import { EnderecoComponent } from './components/auth/endereco/endereco.component';
 import { NewTaskComponent } from './components/tasks/new-task/new-task.component';
 import { ManageEnderecoComponent } from './components/manage-endereco/manage-endereco.component';
+import { RegiaoComponent } from './components/regiao/regiao.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -19,5 +20,6 @@ export const routes: Routes = [
         {path:'new-task', component: NewTaskComponent, canActivate: [authGuard]}
     ]},
     {path: 'endereco', component: ManageEnderecoComponent, canActivate: [authGuard]},
+    {path: 'regiao', component: RegiaoComponent},
     {path: '**', component: NotFoundComponent},
 ];

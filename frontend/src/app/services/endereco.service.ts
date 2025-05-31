@@ -13,4 +13,9 @@ export class EnderecoService {
         const body: any = { rua, cidade, estado, typeUser, cpf};
         return this.http.post('http://localhost:3000/endereco', body);
     }
+
+    regiao(text: string){
+      const body: any = {text};
+      return this.http.post('http://localhost:3000/endereco/regiao',body);
+    }
 }

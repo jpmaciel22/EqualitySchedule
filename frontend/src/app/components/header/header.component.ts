@@ -19,6 +19,7 @@ export class HeaderComponent {
 
   constructor(public authService: AuthService) {
     this.isLoggedIn = authService.isLoggedIn();
+    this.user = this.authService.user()
   }
 
 }

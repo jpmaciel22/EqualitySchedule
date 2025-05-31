@@ -2,6 +2,7 @@ require('dotenv').config();
 const UserEndereco = require('../models/userEnderecoModel');
 const MedicoEndereco = require('../models/medicoEnderecoModel');
 const sequelize = require('../database');
+const Medico = require('../models/medicoModel');
 
 exports.createEndereco = async (req, res, next) => {
   try {
@@ -42,20 +43,28 @@ exports.getAll = async (req, res, next) => {
     }
     return res.status(201).json({ success: true, data: enderecos })
   }
-  return res.status(500).json({success: false, message: 'Algo falhou.'})
+  return res.status(500).json({ success: false, message: 'Algo falhou.' })
 }
 
-exports.deleteOne = async (req,res,next) => {
+exports.deleteOne = async (req, res, next) => {
   const typeUser = req.body.typeUser;
   if (typeUser == 'cliente') {
-      const id = req.body.id;
-      await UserEndereco.destroy({where: {'id_endereco': id}})
-      res.status(201).json({success: true, message: 'Endereço deletado.'})
+    const id = req.body.id;
+    await UserEndereco.destroy({ where: { 'id_endereco': id } })
+    res.status(201).json({ success: true, message: 'Endereço deletado.' })
   }
   if (typeUser == 'medico') {
     const id = req.body.id;
-    await MedicoEndereco.destroy({where: {'id_endereco': id}})
-    res.status(201).json({success: true, message: 'Endereço deletado.'})
+    await MedicoEndereco.destroy({ where: { 'id_endereco': id } })
+    res.status(201).json({ success: true, message: 'Endereço deletado.' })
   }
-  res.status(500).json({success: false, message: 'Endereço não encontrado.'})
+  res.status(500).json({ success: false, message: 'Endereço não encontrado.' })
+}
+
+exports.regiaoFind = async (req, res, next) => {
+  const text = req.body.text;
+
+  const medicos = await Medico.findAll({ where: { 'regiao': text } })
+  res.status(200).json({success: true, message: 'Achamos medicos', data: medicos})
+
 }
