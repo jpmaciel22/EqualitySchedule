@@ -20,6 +20,9 @@ export class RegiaoComponent {
       next: (res:any) => {
         console.log(res)
         this.medicos = res?.data
+      },
+      error: (err) => {
+        this.medicos = [];
       }
     })
   }

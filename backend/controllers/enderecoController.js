@@ -65,6 +65,11 @@ exports.regiaoFind = async (req, res, next) => {
   const text = req.body.text;
 
   const medicos = await Medico.findAll({ where: { 'regiao': text } })
+
+  if(!medicos || medicos.length == 0){
+    res.status(500).json({success: false, message: 'Ninguém foi encontrado.'})
+  }
+
   res.status(200).json({success: true, message: 'Achamos medicos', data: medicos})
 
 }

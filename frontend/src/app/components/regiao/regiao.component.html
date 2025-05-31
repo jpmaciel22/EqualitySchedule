@@ -2,6 +2,10 @@
 <form (ngSubmit)="onSubmit()">
     <input [(ngModel)]="text" name="input" type="text" placeholder="Insira uma região para encontrar médicos...">
 </form>
+@if(medicos.length == 0){
+    <br>
+    <h4>Não há medicos encontrados ou carregando.</h4>
+}
 </div>
 <div class="main" *ngFor="let i of medicos">
     <h4>Medico: {{i.nome}}</h4>
