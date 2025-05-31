@@ -10,6 +10,7 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
   token:any = localStorage.getItem('token');
+  userSubject = new BehaviorSubject<any>(this.getUserFromToken());
   
   constructor(private router: Router, private loginService: LoginService) { }
 
@@ -17,9 +18,28 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
+  private getUserFromToken() {
+  try {
+    const token = localStorage.getItem('token');
+    return token ? jwtDecode(token) : null;
+  } catch {
+    return null;
+  }
+}
+
+user$(): Observable<any> {
+  return this.userSubject.asObservable();
+}
+
+updateUser() {
+  const user = this.getUserFromToken();
+  this.userSubject.next(user);
+}
+
   login(token: string) {
     localStorage.setItem('token', token);
     this.token = token
+    this.updateUser();
     this.isLoginSubject.next(true);
   }
 

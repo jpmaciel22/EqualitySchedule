@@ -16,10 +16,15 @@ export class HeaderComponent {
   isLoggedIn: Observable<boolean>;
   show: boolean = false;
   user: any = '';
-
+  type: any = '';
   constructor(public authService: AuthService) {
     this.isLoggedIn = authService.isLoggedIn();
-    this.user = this.authService.user()
+  }
+  ngOnInit(){
+    this.authService.user$().subscribe(user => {
+    this.user = user;
+    this.type = user?.payload?.type || '';
+  });
   }
 
 }
