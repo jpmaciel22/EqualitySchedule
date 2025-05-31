@@ -22,6 +22,7 @@ export class RegiaoComponent {
         this.medicos = res?.data
       },
       error: (err) => {
+        console.log(err)
         this.medicos = [];
       }
     })
