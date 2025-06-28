@@ -1,8 +1,5 @@
 const Medico = require('../models/medicoModel');
-const User = require('../models/userModel');
 const Consulta = require('../models/consultaModel')
-const MedEnd = require('../models/medicoEnderecoModel')
-const UsEnd = require('../models/userEnderecoModel');
 const sequelize = require('../database');
 const ConsultaAgenda = require('../models/consultaModel');
 require('dotenv').config();

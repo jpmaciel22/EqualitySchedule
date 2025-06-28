@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, } from '@angular/core';
 import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -40,3 +40,4 @@ export class RegisterComponent {
     } else console.log('Email inválido.')
   }
 }
+

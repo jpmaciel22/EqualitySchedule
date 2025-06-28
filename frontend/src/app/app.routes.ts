@@ -20,6 +20,6 @@ export const routes: Routes = [
         {path:'new-task', component: NewTaskComponent, canActivate: [authGuard]}
     ]},
     {path: 'endereco', component: ManageEnderecoComponent, canActivate: [authGuard]},
-    {path: 'regiao', component: RegiaoComponent},
+    {path: 'regiao', component: RegiaoComponent, canActivate: [authGuard]},
     {path: '**', component: NotFoundComponent},
 ];
