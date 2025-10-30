@@ -1,25 +1,18 @@
-// 📁 Caminho: cypress/e2e/frontend/app.cy.js
-
 describe('Testes Frontend - EOG SCHEDULE', () => {
   const baseUrl = 'http://localhost:4200';
   const apiUrl = 'http://localhost:3000';
 
-  // Token JWT fake para simular autenticação
   const fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImNwZiI6IjExMS4xMTEuMTExLTExIiwibm9tZSI6Ikpvw6NvIFNpbHZhIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInR5cGUiOiJjbGllbnRlIn0sImlhdCI6MTYxNjIzOTAyMn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
   beforeEach(() => {
-    // Limpa estado antes de cada teste
     cy.clearCookies();
     cy.clearLocalStorage();
   });
 
-  // ============================================
-  // TESTE 1: Registro de novo usuário (Cliente)
-  // ============================================
+  // TESTE Registro de novo usuário (Cliente)
   it('Deve registrar um novo cliente com sucesso', () => {
     cy.visit(`${baseUrl}/register`);
 
-    // Preenche o formulário de registro
     cy.get('input[name="email"]').type('novocliente@teste.com');
     cy.get('input[name="password"]').type('senha123');
     cy.get('input[name="nome"]').type('Maria Santos');
@@ -27,7 +20,6 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
     cy.get('input[name="telefone"]').type('71999887766');
     cy.get('select[name="select"]').select('cliente');
 
-    // Intercepta a requisição de registro
     cy.intercept('POST', `${apiUrl}/login/register`, {
       statusCode: 201,
       body: {
@@ -36,10 +28,8 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
       }
     }).as('registerRequest');
 
-    // Submete o formulário
     cy.get('button[type="submit"]').click();
 
-    // Verifica se a requisição foi feita corretamente
     cy.wait('@registerRequest').then((interception) => {
       expect(interception.request.body).to.deep.include({
         email: 'novocliente@teste.com',
@@ -49,13 +39,10 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
       });
     });
 
-    // Verifica redirecionamento para login
     cy.url().should('include', '/login');
   });
 
-  // ============================================
-  // TESTE 2: Registro de médico com campos extras
-  // ============================================
+  // TESTE Registro de médico com campos extras
   it('Deve registrar um novo médico com região e especialização', () => {
     cy.visit(`${baseUrl}/register`);
 
@@ -91,11 +78,8 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
     cy.url().should('include', '/login');
   });
 
-  // ============================================
-  // TESTE 3: Login e visualização de consultas
-  // ============================================
+  // TESTE Login e visualização de consultas
   it('Deve fazer login e exibir consultas do cliente organizadas por status', () => {
-    // Intercepta login ANTES do visit
     cy.intercept('POST', `${apiUrl}/login/`, {
       statusCode: 200,
       body: {
@@ -107,7 +91,6 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
 
     cy.visit(`${baseUrl}/login`);
 
-    // Preenche login
     cy.get('input[name="email"]').type('cliente@teste.com');
     cy.get('input[name="password"]').type('senha123');
     cy.get('select[name="select"]').select('cliente');
@@ -115,10 +98,8 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
     cy.get('button[type="submit"]').click();
     cy.wait('@loginRequest');
 
-    // Verifica se redirecionou para home
     cy.url().should('eq', `${baseUrl}/`);
 
-    // Mock das consultas retornadas pela API (ANTES do visit)
     const hoje = new Date().toISOString().split('T')[0];
     const amanha = new Date(Date.now() + 86400000).toISOString();
     
@@ -155,34 +136,26 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
       }
     }).as('getTasks');
 
-    // Navega para tasks (DEPOIS do intercept)
     cy.visit(`${baseUrl}/tasks`);
 
     cy.wait('@getTasks');
 
-    // Verifica se as seções aparecem
     cy.contains('Suas consultas').should('be.visible');
     cy.contains('Realizadas').should('be.visible');
     cy.contains('Pendentes').should('be.visible');
 
-    // Verifica se consulta de hoje aparece
     cy.contains('Consulta de hoje').should('be.visible');
     cy.contains('Dr. Silva').should('be.visible');
 
-    // Verifica se consulta realizada aparece na seção correta
     cy.contains('Consulta realizada').should('be.visible');
   });
 
-  // ============================================
-  // TESTE 4: Criar nova consulta completo
-  // ============================================
+  // TESTE Criar nova consulta completo
   it('Deve criar uma nova consulta selecionando médico da lista', () => {
-    // Simula usuário logado
     cy.window().then((win) => {
       win.localStorage.setItem('token', fakeToken);
     });
 
-    // Mock da lista de médicos (ANTES do visit)
     cy.intercept('GET', `${apiUrl}/tasks/getMedicos`, {
       statusCode: 200,
       body: {
@@ -198,14 +171,11 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
 
     cy.wait('@getMedicos');
 
-    // Preenche formulário de nova consulta
     cy.get('input[name="data"]').type('2025-12-31T15:30');
     cy.get('textarea[name="descricao"]').type('Consulta de retorno importante');
     
-    // Seleciona médico pelo TEXTO (nome - especialização)
     cy.get('select[name="select"]').select('Dr. Silva - Cardiologia');
 
-    // Intercepta criação
     cy.intercept('POST', `${apiUrl}/tasks/add`, {
       statusCode: 201,
       body: {
@@ -226,13 +196,10 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
       expect(interception.request.body.user).to.exist;
     });
 
-    // Verifica mensagem de sucesso
     cy.contains('Consulta registrada com sucesso').should('be.visible');
   });
 
-  // ============================================
-  // TESTE 5: Marcar consulta como realizada
-  // ============================================
+  // TESTE Marcar consulta como realizada
   it('Deve marcar consulta como realizada e atualizar a interface', () => {
     cy.window().then((win) => {
       win.localStorage.setItem('token', fakeToken);
@@ -240,7 +207,6 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
 
     const hoje = new Date().toISOString().split('T')[0];
 
-    // Mock inicial com consulta em andamento (ANTES do visit)
     cy.intercept('POST', `${apiUrl}/tasks/`, {
       statusCode: 200,
       body: {
@@ -262,10 +228,8 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
 
     cy.wait('@getTasksInicial');
 
-    // Verifica que a consulta aparece na seção de hoje
     cy.contains('Consulta para marcar').should('be.visible');
 
-    // Intercepta a marcação como realizada
     cy.intercept('POST', `${apiUrl}/tasks/realizar`, {
       statusCode: 201,
       body: {
@@ -274,7 +238,6 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
       }
     }).as('marcarRealizada');
 
-    // Mock atualizado após marcar como realizada
     cy.intercept('POST', `${apiUrl}/tasks/`, {
       statusCode: 200,
       body: {
@@ -292,7 +255,6 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
       }
     }).as('getTasksAtualizado');
 
-    // Clica no botão "Realizada"
     cy.contains('button', 'Realizada').click();
 
     cy.wait('@marcarRealizada').then((interception) => {
@@ -301,18 +263,14 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
       });
     });
 
-    // Aguarda reload da lista
     cy.wait('@getTasksAtualizado');
 
-    // Verifica que consulta agora aparece na seção de realizadas
     cy.contains('.status-column', 'Realizadas').within(() => {
       cy.contains('Consulta para marcar').should('be.visible');
     });
   });
 
-  // ============================================
-  // TESTE BÔNUS: Cadastrar endereço
-  // ============================================
+  // TESTE Cadastrar endereço
   it('Deve cadastrar um endereço com sucesso', () => {
     cy.window().then((win) => {
       win.localStorage.setItem('token', fakeToken);
@@ -344,7 +302,6 @@ describe('Testes Frontend - EOG SCHEDULE', () => {
       });
     });
 
-    // Verifica mensagem de sucesso
     cy.get('ngb-alert[type="success"]').should('be.visible');
     cy.contains('Endereço cadastrado com sucesso').should('be.visible');
   });
