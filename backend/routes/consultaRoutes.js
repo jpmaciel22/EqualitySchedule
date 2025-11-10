@@ -7,5 +7,6 @@ router.post('/add', consultaController.criaConsulta);
 router.post('/',consultaController.getAll)
 router.post('/realizar',consultaController.realizada)
 router.get('/getMedicos',consultaController.getMedicos)
+router.get('/getUsers', consultaController.getUsers)
 
 module.exports = router;

@@ -311,7 +311,7 @@ describe('Testes Unitários - Modelo ConsultaAgenda', () => {
     });
 
     it('Deve aceitar descrição válida', () => {
-      const descricoes = ['Consulta', 'conseguii?', 'teste'];
+      const descricoes = ['Consulta', 'oi tudo bem', 'teste'];
 
       descricoes.forEach(desc => {
         expect(desc.trim()).to.have.length.greaterThan(0);

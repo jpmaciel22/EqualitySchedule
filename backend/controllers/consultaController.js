@@ -2,6 +2,7 @@ const Medico = require('../models/medicoModel');
 const Consulta = require('../models/consultaModel')
 const sequelize = require('../database');
 const ConsultaAgenda = require('../models/consultaModel');
+const User = require('../models/userModel');
 require('dotenv').config();
 
 exports.criaConsulta = async (req, res, next) => {
@@ -63,4 +64,9 @@ exports.realizada = async (req, res, next) => {
 exports.getMedicos = async (req, res, next) => {
   const medicos = await Medico.findAll();
   res.status(200).json({ data: medicos });
+}
+
+exports.getUsers = async (req, res, next) => {
+  const users = await User.findAll();
+  res.status(200).json({ data: users });
 }
