@@ -11,7 +11,11 @@ exports.criaConsulta = async (req, res, next) => {
   if (jaExiste) {
     return res.status(401).json({ success: false, message: 'ID de consulta já cadastrado.' })
   }
-  await Consulta.create({ codigo, horario: data, id_user: user, id_medico: medico_cpf, descricao });
+  let mesmoHorario = await Consulta.findOne({where: {'horario': data}});
+  if(mesmoHorario){
+    return res.status(401).json({ success: false, message: 'Já existe consulta neste horário.' })
+  }
+  const retorno = await Consulta.create({ codigo, horario: data, id_user: user, id_medico: medico_cpf, descricao });
   return res.status(201).json({ success: true, message: 'Consulta registrada com sucesso.' });
 }
 
